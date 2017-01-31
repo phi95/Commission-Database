@@ -10,6 +10,12 @@ import cd.persistence.impl.Persistent;
 
 public class TransactionImpl extends Persistent implements Transaction {
 
+	private Date date;
+	private String description;
+	private Customer customer;
+	private Worker worker;
+	private double transactionAmount;
+	
 	@Override
 	public Date getDate() {
 		// TODO Auto-generated method stub
@@ -56,6 +62,18 @@ public class TransactionImpl extends Persistent implements Transaction {
 	public Worker getWorker() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public double getTransactionAmount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setTransactionAmount(double transactionAmount) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

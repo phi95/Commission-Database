@@ -25,4 +25,16 @@ public interface Transaction extends Persistable {
 	
 	public Worker getWorker();
 	
+	
+	/**
+	 * Accesses the amount of money earned from this commission.
+	 * @return the amount of money earned from this commission.
+	 */
+	public double getTransactionAmount();
+	
+	/**
+	 * Sets the amount of money earned from this commission.
+	 * @param transactionAmount the amount of money earned from this commission
+	 */
+	public void setTransactionAmount(double transactionAmount);
 }
