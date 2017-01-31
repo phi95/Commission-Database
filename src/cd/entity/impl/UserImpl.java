@@ -11,6 +11,7 @@ public class UserImpl extends Persistent implements User {
 	private String userName;
 	private String password;
 	private String email;
+	private String phoneNumber;
 	
 	public UserImpl() {
 		firstName = null;
@@ -18,6 +19,7 @@ public class UserImpl extends Persistent implements User {
 		userName = null;
 		password = null;
 		email = null;		
+		phoneNumber = null;
 		
 	} // UserImpl
 	
@@ -79,5 +81,15 @@ public class UserImpl extends Persistent implements User {
 	public void setEmailAddress(String emailAddress) {
 		email = emailAddress;
 	} // setEmailAddress
+
+	@Override
+	public String getPhoneNumber() {
+		return phoneNumber;
+	} // getPhoneNumber
+
+	@Override
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	} // setPhoneNumber
 
 }

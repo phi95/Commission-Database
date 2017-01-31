@@ -53,4 +53,14 @@ public interface User extends Persistable {
      * @param emailAddress the new email address
      */
     public void   setEmailAddress( String emailAddress );
+    
+    /** Retrieve the user's phone number.
+     * @return the user's phone number.
+     */
+    public String getPhoneNumber();
+    
+    /** Set the user's phone number.
+     * @param the user's phone number.
+     */
+    public void setPhoneNumber(String phoneNumber);
 }
