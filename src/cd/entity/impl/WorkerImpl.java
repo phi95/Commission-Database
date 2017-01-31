@@ -8,7 +8,7 @@ public class WorkerImpl extends UserImpl implements Worker {
 		super();
 	}
 	
-	public WorkerImpl(String fname, String lname, String userName, String password, String email) {
-		super(fname, lname, userName, password, email);
+	public WorkerImpl(String fname, String lname, String userName, String password, String email, String phoneNumber) {
+		super(fname, lname, userName, password, email, phoneNumber);
 	}
 }

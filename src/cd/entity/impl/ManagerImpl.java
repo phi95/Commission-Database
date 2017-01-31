@@ -8,7 +8,7 @@ public class ManagerImpl extends UserImpl implements Manager {
 		super();
 	}
 	
-	public ManagerImpl(String fname, String lname, String userName, String password, String email) {
-		super(fname, lname, userName, password, email);
+	public ManagerImpl(String fname, String lname, String userName, String password, String email, String phoneNumber) {
+		super(fname, lname, userName, password, email, phoneNumber);
 	}
 }
