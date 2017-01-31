@@ -1,6 +1,6 @@
-package object.impl;
+package cd.object.impl;
 
-import object.ObjectLayer;
+import cd.object.ObjectLayer;
 
 public class ObjectLayerImpl implements ObjectLayer {
 

@@ -1,6 +1,6 @@
-package entity;
+package cd.entity;
 
-import persistence.Persistable;
+import cd.persistence.Persistable;
 
 public interface Transaction extends Persistable {
 

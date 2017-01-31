@@ -1,4 +1,4 @@
-package persistence;
+package cd.persistence;
 
 public interface PersistenceLayer {
 
