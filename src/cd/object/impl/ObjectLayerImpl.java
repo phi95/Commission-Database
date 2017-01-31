@@ -143,4 +143,14 @@ public class ObjectLayerImpl implements ObjectLayer {
 		persistence.deleteWorker(worker);
 	}
 
+	@Override
+	public PersistenceLayer getPersistence() {
+		return persistence;
+	}
+
+	@Override
+	public void setPersistence(PersistenceLayer persistence) {
+		this.persistence = persistence;
+	}
+
 }

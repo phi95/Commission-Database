@@ -7,6 +7,7 @@ import cd.entity.Customer;
 import cd.entity.Manager;
 import cd.entity.Transaction;
 import cd.entity.Worker;
+import cd.persistence.PersistenceLayer;
 import cd.CDException;
 
 public interface ObjectLayer {
@@ -174,5 +175,16 @@ public interface ObjectLayer {
      * @throws CDException in case there is a problem with the deletion of the object
      */
     public void deleteWorker( Worker worker ) throws CDException;
+    
+    /**
+     * Returning this ObectLayer's PersistenceLayer
+     */
+	public PersistenceLayer getPersistence();
+    
+    /**
+     * setting a persistence layer to this objectlayer
+     * @param persistence the PersistenceLayer to set
+     */
+	public void setPersistence(PersistenceLayer persistence);
 
 }
