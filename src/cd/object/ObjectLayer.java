@@ -22,7 +22,7 @@ public interface ObjectLayer {
 	 * @return A new customer object with the given attributes.
 	 * @throws CDException
 	 */
-	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email, String phoneNumbers) throws CDException;
+	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
 	
 	/**
 	 * Creates a customer object with undefined attributes.
@@ -44,6 +44,13 @@ public interface ObjectLayer {
 	 * @throws CDException may happen if there is a problem with storing the object.
 	 */
 	public void storeCustomer(Customer customer) throws CDException;
+	
+	/**
+     * Delete this Customer object.
+     * @param customer the object to be deleted.
+     * @throws CDException in case there is a problem with the deletion of the object
+     */
+    public void deleteCustomer( Customer customer ) throws CDException;
 
 	/**
 	 * Creates a new manager object with the given attributes.
@@ -56,7 +63,7 @@ public interface ObjectLayer {
 	 * @return A new Manager object with the given attributes.
 	 * @throws CDException
 	 */
-	public Manager createManager(String firstName, String lastName, String userName, String password, String email, String phoneNumbers) throws CDException;
+	public Manager createManager(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
 
 	/**
 	 * Creates a Manager object with undefined attributes.
@@ -78,6 +85,13 @@ public interface ObjectLayer {
 	 * @throws CDException may happen if there is a problem with storing the object.
 	 */
 	public void storeManager(Manager manager) throws CDException;
+	
+	/**
+     * Delete this Manager object.
+     * @param manager the object to be deleted.
+     * @throws CDException in case there is a problem with the deletion of the object
+     */
+    public void deleteManager( Manager manager ) throws CDException;
 	
 	/**
 	 * Creates a Transaction object with the given attributes.
@@ -113,6 +127,13 @@ public interface ObjectLayer {
 	public void storeTransaction(Transaction transaction) throws CDException;
 	
 	/**
+     * Delete this Transaction object.
+     * @param transaction the object to be deleted.
+     * @throws CDException in case there is a problem with the deletion of the object
+     */
+    public void deleteTransaction( Transaction transaction ) throws CDException;
+	
+	/**
 	 * Creates a Worker object with the given attributes.
 	 * @param firstName the first name
 	 * @param lastName the last name
@@ -123,7 +144,7 @@ public interface ObjectLayer {
 	 * @return A new Worker object with the given attributes.
 	 * @throws CDException
 	 */
-	public Worker createWorker(String firstName, String lastName, String userName, String password, String email, String phoneNumbers) throws CDException;
+	public Worker createWorker(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
 	
 	/**
 	 * Creates a Worker with undefined attributes.
@@ -146,5 +167,12 @@ public interface ObjectLayer {
 	 * @throws CDException
 	 */
 	public void storeWorker(Worker worker) throws CDException;
+	
+	/**
+     * Delete this Worker object.
+     * @param worker the object to be deleted.
+     * @throws CDException in case there is a problem with the deletion of the object
+     */
+    public void deleteWorker( Worker worker ) throws CDException;
 
 }
