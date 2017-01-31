@@ -1,5 +1,6 @@
 package cd.entity.impl;
 
+import cd.CDException;
 import cd.entity.Transaction;
 import cd.persistence.impl.Persistent;
 
