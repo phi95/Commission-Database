@@ -18,62 +18,52 @@ public class TransactionImpl extends Persistent implements Transaction {
 	
 	@Override
 	public Date getDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return date;
+	} // getDate
 
 	@Override
 	public void setDate(Date date) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.date = date;
+	} // setDate
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return description;
+	} // getDescription
 
 	@Override
 	public void setDescription(String Description) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.description = description;
+	} // setDescription
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return customer;
+	} // getCustomer
 
 	@Override
 	public void setCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.customer = customer;
+	} // setCustomer
 
 	@Override
 	public void setWorker(Worker worker) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.worker = worker;
+	} // setWorker
 
 	@Override
 	public Worker getWorker() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return worker;
+	} // getWorker
 
 	@Override
 	public double getTransactionAmount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		return transactionAmount;
+	} // getTransactionAmount
 
 	@Override
 	public void setTransactionAmount(double transactionAmount) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.transactionAmount = transactionAmount;
+	} // setTransactionAmount
 
 }
