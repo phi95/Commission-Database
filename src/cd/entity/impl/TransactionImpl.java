@@ -16,6 +16,15 @@ public class TransactionImpl extends Persistent implements Transaction {
 	private Worker worker;
 	private double transactionAmount;
 	
+	public TransactionImpl(Date date, String description, Customer customer, Worker worker, double transactionAmount) {
+		this.date = date;
+		this.description = description;
+		this.customer = customer;
+		this.worker = worker;
+		this.transactionAmount = transactionAmount;
+		
+	} // TransactionImpl
+	
 	@Override
 	public Date getDate() {
 		return date;
