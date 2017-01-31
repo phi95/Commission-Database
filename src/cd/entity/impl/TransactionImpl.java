@@ -32,7 +32,7 @@ public class TransactionImpl extends Persistent implements Transaction {
 	} // getDescription
 
 	@Override
-	public void setDescription(String Description) {
+	public void setDescription(String description) {
 		this.description = description;
 	} // setDescription
 
