@@ -11,4 +11,18 @@ public interface Transaction extends Persistable {
 	 */
 	public Date getDate();
 	
+	public void setDate(Date date);
+	
+	public String getDescription();
+	
+	public void setDescription(String Description);
+	
+	public Customer getCustomer();
+	
+	public void setCustomer(Customer customer);
+	
+	public void setWorker(Worker worker);
+	
+	public Worker getWorker();
+	
 }
