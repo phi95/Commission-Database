@@ -1,8 +1,7 @@
 package cd.entity;
 
 import cd.CDException;
-import cd.persistence.Persistable;
 
-public interface Worker extends Persistable {
+public interface Worker extends User {
 
 }
