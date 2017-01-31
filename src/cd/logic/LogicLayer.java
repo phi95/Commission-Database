@@ -1,4 +1,4 @@
-package logic;
+package cd.logic;
 
 public interface LogicLayer {
 

@@ -1,4 +1,4 @@
-package object;
+package cd.object;
 
 public interface ObjectLayer {
 

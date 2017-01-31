@@ -1,6 +1,6 @@
-package logic.impl;
+package cd.logic.impl;
 
-import logic.LogicLayer;
+import cd.logic.LogicLayer;
 
 public class LogicLayerImpl implements LogicLayer {
 
