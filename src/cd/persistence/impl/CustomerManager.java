@@ -76,7 +76,7 @@ public class CustomerManager {
             
             if( customer.isPersistent() ){
                 stmt.setLong( 7, customer.getId() );
-                stmt2 = (PreparedStatement) conn.prepareStatement( insertCustomerSql );
+                stmt2 = (PreparedStatement) conn.prepareStatement( updateCustomerSql );
                 stmt2.setLong(1, customer.getId());
                 if(customer.getDescription() != null)
                 	stmt2.setString(2, customer.getDescription());
