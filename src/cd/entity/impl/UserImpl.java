@@ -23,13 +23,13 @@ public class UserImpl extends Persistent implements User {
 		
 	} // UserImpl
 	
-	public UserImpl(String firstName, String lastName, String userName, String password, String email) {
+	public UserImpl(String firstName, String lastName, String userName, String password, String email, String phoneNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-
+		this.phoneNumber = phoneNumber;
 	} // UserImpl
 	
 	@Override
