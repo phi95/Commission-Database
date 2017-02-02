@@ -104,7 +104,7 @@ public interface ObjectLayer {
 	 * @return A Transaction object.
 	 * @throws CDException
 	 */
-	public Transaction createTransaction(Date date, String description, Customer customer, Worker worker, double transactionAmount) throws CDException; 
+	public Transaction createTransaction(Customer customer, Worker worker, Date date, String description, double transactionAmount) throws CDException; 
 	
 	/**
 	 * Creates a Transaction object with undefined attributes.

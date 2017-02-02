@@ -88,9 +88,8 @@ public class ObjectLayerImpl implements ObjectLayer {
 	}
 
 	@Override
-	public Transaction createTransaction(Date date, String description, Customer customer, Worker worker,
-			double transactionAmount) throws CDException {
-		Transaction transaction = new TransactionImpl(date, description, customer, worker, transactionAmount);
+	public Transaction createTransaction(Customer customer, Worker worker, Date date, String description, double transactionAmount) throws CDException {
+		Transaction transaction = new TransactionImpl(customer, worker, date, description, transactionAmount);
 		return transaction;
 	}
 
