@@ -2,85 +2,88 @@ package cd.persistence.impl;
 
 import java.util.List;
 
+import java.sql.Connection;
+
 import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Manager;
 import cd.entity.Transaction;
 import cd.entity.Worker;
+import cd.object.ObjectLayer;
 import cd.persistence.PersistenceLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
+	private CustomerManager customerManager = null;
+	private ManagerManager managerManager = null;
+	private TransactionManager transactionManager = null;
+	private WorkerManager workerManager = null;
+	
+	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer){
+		customerManager = new CustomerManager(conn, objectLayer);
+		managerManager = new ManagerManager(conn, objectLayer);
+		transactionManager = new TransactionManager(conn, objectLayer);
+		workerManager = new WorkerManager(conn, objectLayer);
+	}
+	
 	@Override
 	public List<Customer> restoreCustomer(Customer modelCustomer) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return customerManager.restore(modelCustomer);
 	}
 
 	@Override
 	public void storeCustomer(Customer customer) throws CDException {
-		// TODO Auto-generated method stub
-		
+		customerManager.store(customer);
 	}
 
 	@Override
 	public void deleteCustomer(Customer customer) throws CDException {
-		// TODO Auto-generated method stub
-		
+		customerManager.delete(customer);
 	}
 
 	@Override
 	public List<Manager> restoreManager(Manager modelManager) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return managerManager.restore(modelManager);
 	}
 
 	@Override
 	public void storeManager(Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		
+		managerManager.store(manager);
 	}
 
 	@Override
 	public void deleteManager(Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		
+		managerManager.delete(manager);
 	}
 
 	@Override
 	public List<Worker> restoreWorker(Worker modelWorker) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return workerManager.restore(modelWorker);
 	}
 
 	@Override
 	public void storeWorker(Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		
+		workerManager.store(worker);
 	}
 
 	@Override
 	public void deleteWorker(Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		
+		workerManager.delete(worker);
 	}
 
 	@Override
 	public List<Transaction> restoreTransaction(Transaction modelTransaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionManager.restore(modelTransaction);
 	}
 
 	@Override
 	public void storeTransaction(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		
+		transactionManager.store(transaction);
 	}
 
 	@Override
 	public void deleteTransaction(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		
+		transactionManager.delete(transaction);
 	}
 
 	@Override
