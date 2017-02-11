@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import cd.CDException;
 import cd.entity.Manager;
+import cd.entity.Worker;
 import cd.object.ObjectLayer;
 
 public class ManagerManager {
@@ -231,4 +232,9 @@ public class ManagerManager {
             throw new CDException( "ManagerManager.delete: failed to delete this Manager: " + e.getMessage() );
         }
     }
+    
+    public Manager restoreManagerFromWorker(Worker worker) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

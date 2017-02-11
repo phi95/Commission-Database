@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import cd.CDException;
 import cd.entity.Customer;
+import cd.entity.Transaction;
 import cd.object.ObjectLayer;
 
 public class CustomerManager {
@@ -240,4 +241,9 @@ public class CustomerManager {
             throw new CDException( "CustomerManager.delete: failed to delete this Customer: " + e.getMessage() );
         }
     }
+    
+    public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

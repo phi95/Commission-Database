@@ -10,6 +10,8 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import cd.CDException;
+import cd.entity.Manager;
+import cd.entity.Transaction;
 import cd.entity.Worker;
 import cd.object.ObjectLayer;
 
@@ -231,4 +233,24 @@ public class WorkerManager {
             throw new CDException( "WorkerManager.delete: failed to delete this Worker: " + e.getMessage() );
         }
     }
+    
+    public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

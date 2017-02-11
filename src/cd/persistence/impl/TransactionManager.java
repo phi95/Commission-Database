@@ -165,4 +165,34 @@ public class TransactionManager {
 		} // catch
 	} // delete
 	
+	public void storeTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void deleteTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public List<Transaction> restoreTransactionCompletedByWorker(Worker worker) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public List<Transaction> restoreTransactionOrderedByCustomer(Customer customer) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 } // TransactionManager

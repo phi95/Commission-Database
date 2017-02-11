@@ -88,74 +88,63 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
 	@Override
 	public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		
+		workerManager.storeWorkerEmployedByManager(worker, manager);
 	}
 
 	@Override
 	public void storeTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		
+		transactionManager.storeTransactionCompletedByWorker(transaction, worker);
 	}
 
 	@Override
-	public void storeTransactionOrderedByCustoemr(Transaction transaction, Customer customer) throws CDException {
-		// TODO Auto-generated method stub
+	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
+		transactionManager.storeTransactionOrderedByCustomer(transaction, customer);
 		
 	}
 
 	@Override
 	public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		
+		workerManager.deleteWorkerEmployedByManager(worker, manager);
 	}
 
 	@Override
 	public void deleteTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		
+		transactionManager.deleteTransactionCompletedByWorker(transaction, worker);
 	}
 
 	@Override
-	public void deleteTransactionOrderedByCustoemr(Transaction transaction, Customer customer) throws CDException {
-		// TODO Auto-generated method stub
-		
+	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
+		transactionManager.deleteTransactionOrderedByCustomer(transaction, customer);
 	}
 
 	@Override
 	public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return workerManager.restoreWorkerEmployedByManager(manager);
 	}
 
 	@Override
-	public Manager restoreWorkerEmployedByManager(Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+	public Manager restoreManagerFromWorker(Worker worker) throws CDException {
+		return managerManager.restoreManagerFromWorker(worker);
 	}
 
 	@Override
 	public List<Transaction> restoreTransactionCompletedByWorker(Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionManager.restoreTransactionCompletedByWorker(worker);
 	}
 
 	@Override
 	public List<Transaction> restoreTransactionOrderedByCustomer(Customer customer) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+		return transactionManager.restoreTransactionOrderedByCustomer(customer);
 	}
 
 	@Override
-	public Customer restoreTransactionOrderedByCustomer(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException {
+		return customerManager.restoreCustomerFromTransaction(transaction);
 	}
 
 	@Override
-	public Worker restoreTransactionCompletedByWorker(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
+	public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException {
+		return workerManager.restoreWorkerFromTransaction(transaction);
 	}
 
 }

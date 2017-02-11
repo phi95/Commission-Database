@@ -132,7 +132,7 @@ public interface PersistenceLayer {
 	 * @param customer The customer to be linked.
 	 * @throws CDException
 	 */
-	public void storeTransactionOrderedByCustoemr(Transaction transaction, Customer customer) throws CDException;
+	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException;
 	
 	/**
 	 * Delete a link between a Worker employed by a Manager
@@ -156,7 +156,7 @@ public interface PersistenceLayer {
 	 * @param customer The customer
 	 * @throws CDException
 	 */
-	public void deleteTransactionOrderedByCustoemr(Transaction transaction, Customer customer) throws CDException;	
+	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException;	
 	
 	/**
 	 * Return a List of workers employed by a given Manager.
@@ -172,7 +172,7 @@ public interface PersistenceLayer {
 	 * @return The manager who employs the worker.
 	 * @throws CDException
 	 */
-	public Manager restoreWorkerEmployedByManager(Worker worker) throws CDException;
+	public Manager restoreManagerFromWorker(Worker worker) throws CDException;
 	
 	/**
 	 * Return a List of Transactions completed by a particular worker.
@@ -196,7 +196,7 @@ public interface PersistenceLayer {
 	 * @return The Customer who ordered the transaction.
 	 * @throws CDException
 	 */
-	public Customer restoreTransactionOrderedByCustomer(Transaction transaction) throws CDException;
+	public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException;
 	
 	/**
 	 * Return the worker who completed a particular transaction.
@@ -204,6 +204,6 @@ public interface PersistenceLayer {
 	 * @return THe workered who completed the transaction.
 	 * @throws CDException
 	 */
-	public Worker restoreTransactionCompletedByWorker(Transaction transaction) throws CDException;
+	public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException;
 	
 }
