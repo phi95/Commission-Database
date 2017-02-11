@@ -14,9 +14,6 @@ import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Transaction;
 import cd.entity.Worker;
-import cd.entity.impl.CustomerImpl;
-import cd.entity.impl.TransactionImpl;
-import cd.entity.impl.WorkerImpl;
 import cd.object.ObjectLayer;
 
 public class TransactionManager {
@@ -205,7 +202,7 @@ public class TransactionManager {
 		int rowCount;
 		
 		if (!transaction.isPersistent()) throw new CDException("TransactionManager.save: transaction is not persistent.");
-		else if (!customer.isPersistent()) throw new CDException("TransactionManager,save: worker is not persistent.");
+		else if (!customer.isPersistent()) throw new CDException("TransactionManager.save: worker is not persistent.");
 		
 		try {
 			statement = (PreparedStatement) con.prepareStatement(storeSQL);

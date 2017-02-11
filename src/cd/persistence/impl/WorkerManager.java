@@ -235,22 +235,102 @@ public class WorkerManager {
     }
     
     public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		
-	}
+    	String insertSQL = "insert into ManagerWorker (managerId, workerId) values (?, ?)";
+    	PreparedStatement statement = null;
+    	int rowCount;
+    	
+    	if (!worker.isPersistent()) throw new CDException("WorkerManager.save: worker is not persistent.");
+    	else if (!manager.isPersistent()) throw new CDException("WorkerManager.save: manager is not persistent.");
+    	
+    	try {
+    		statement = (PreparedStatement) conn.prepareStatement(insertSQL);
+    		statement.setLong(1, manager.getId());
+    		statement.setLong(2, worker.getId());
+    		rowCount = statement.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new CDException("WorkerManager.save: could not insert into WorkerManager. Reason: " + e);
+    	} // try-catch
+    	
+    	if (rowCount < 0) throw new CDException("WorkerManager.save: could not insert into WorkerManager");
+	} // storeWorkerEmployedByManager
     
     public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		// TODO Auto-generated method stub
+		String deleteSQL = "delete from ManagerWorker where managerId = ? and workerId = ?";
+		PreparedStatement statement = null;
+		int rowCount;
 		
-	}
+		/* No need to delete if this element isn't persistent. */
+		if (!manager.isPersistent()) return;
+		else if (!worker.isPersistent()) return;
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(deleteSQL);
+			statement.setLong(1, manager.getId());
+			statement.setLong(2, worker.getId());
+			rowCount = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CDException("WorkerManager.delete: failed to delete from ManagerWorker table: " + e);
+		} // try-catch
+		
+		// If no rows were affected by this query, we know the deletion failed.
+		if (rowCount == 0) throw new CDException("WorkerManager.delete: failed to delete from ManagerWorker table.");		
+	} // deleteWorkerEmployedByManager
     
     public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String selectSQL = "select from ManagerWorker where managerId = ?";
+		PreparedStatement statement = null;
+		List<Worker> workerList = new ArrayList<Worker>();
+		long workerId;
+		
+		if (!manager.isPersistent()) return workerList; // Return an empty list
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(selectSQL);
+			statement.setLong(1, manager.getId());
+			statement.execute();
+			ResultSet result = statement.getResultSet();
+			while (result.next()) {
+				workerId = result.getLong(2);
+				Worker modelWorker = objectLayer.createWorker();
+				modelWorker.setId(workerId);
+				List<Worker> workerEmployedByManager = restore(modelWorker);
+				Worker worker = workerEmployedByManager.get(0); // there can only be one worker that matches the model.
+				workerList.add(worker);
+			} // while
+		} catch (SQLException e) {
+			throw new CDException("WorkerManager.restore: Could not restore a list of workers. Reason: " + e);
+		} // try-catch
+		
+		return workerList;
+	} // restoreWorkerEmployedByManager
     
     public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		PreparedStatement statement = null;
+		Worker resultWorker = null;
+		String selectSQL = "select from WorkerTransaction where transactionId = ?";
+		
+		if (!transaction.isPersistent()) throw new CDException ("WorkerManager.restore: cannot restore a worker from a transaction that is not persistent.");
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(selectSQL);
+			statement.setLong(2, transaction.getId());
+			statement.execute();
+			ResultSet result = statement.getResultSet();
+			while (result.next()) {
+				long workerId = result.getLong(1);
+				Worker modelWorker = objectLayer.createWorker();
+				modelWorker.setId(workerId);
+				List<Worker> workerProcessedTransaction = objectLayer.getPersistence().restoreWorker(modelWorker);
+				resultWorker = workerProcessedTransaction.get(0);
+				return resultWorker;
+			} // while
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CDException("WorkerManager.restore: Could not restore a worker. Reason: " + e);
+		} // try-catch
+	
+		return resultWorker;
+	} // restoreWorkerFromTransaction
 }
