@@ -234,7 +234,30 @@ public class ManagerManager {
     }
     
     public Manager restoreManagerFromWorker(Worker worker) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		PreparedStatement statement = null;
+		Manager resultManager = null;
+		String selectSQL = "select from ManagerWorker where workerId = ?";
+		
+		if (!worker.isPersistent()) throw new CDException ("ManagerManager.restore: cannot restore a manager from a worker that is not persistent.");
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(selectSQL);
+			statement.setLong(2, worker.getId());
+			statement.execute();
+			ResultSet result = statement.getResultSet();
+			while (result.next()) {
+				long managerId = result.getLong(1);
+				Manager modelManager = objectLayer.createManager();
+				modelManager.setId(managerId);
+				List<Manager> managerEmployingWorker = objectLayer.getPersistence().restoreManager(modelManager);
+				resultManager = managerEmployingWorker.get(0);
+				return resultManager;
+			} // while
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CDException("ManagerManager.restore: Could not restore a manager. Reason: " + e);
+		} // try-catch
+	
+		return resultManager;
+	} // restoreManagerFromWorker
 }
