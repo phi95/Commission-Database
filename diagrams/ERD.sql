@@ -18,14 +18,26 @@ CREATE TABLE Worker (
 
 ALTER TABLE Worker ADD CONSTRAINT PK_Worker PRIMARY KEY (workerId);
 
+CREATE TABLE WorkerTransaction (
+ workerId INT NOT NULL,
+ transactionId INT NOT NULL
+);
+
+ALTER TABLE WorkerTransaction ADD CONSTRAINT PK_WorkerTransaction PRIMARY KEY (workerId,transactionId);
 
 CREATE TABLE Customer (
- customerId CHAR(10) NOT NULL AUTO_INCREMENT,
+ customerId INT NOT NULL AUTO_INCREMENT,
  userId INT NOT NULL
 );
 
 ALTER TABLE Customer ADD CONSTRAINT PK_Customer PRIMARY KEY (customerId);
 
+CREATE TABLE CustomerTransaction (
+ customerId INT NOT NULL,
+ transactionId INT NOT NULL
+);
+
+ALTER TABLE CustomerTransaction ADD CONSTRAINT PK_CustomerTransaction PRIMARY KEY (customerId,transactionId);
 
 CREATE TABLE Manager (
  managerId INT NOT NULL AUTO_INCREMENT,
@@ -46,18 +58,20 @@ ALTER TABLE ManagerWorker ADD CONSTRAINT PK_ManagerWorker PRIMARY KEY (managerId
 CREATE TABLE Transaction (
  transactionId INT NOT NULL AUTO_INCREMENT,
  date DATE NOT NULL,
- workerId INT NOT NULL,
- customerId CHAR(10) NOT NULL
 );
 
-ALTER TABLE Transaction ADD CONSTRAINT PK_Transaction PRIMARY KEY (transactionId,date,workerId,customerId);
+ALTER TABLE Transaction ADD CONSTRAINT PK_Transaction PRIMARY KEY (transactionId);
 
 
 ALTER TABLE Worker ADD CONSTRAINT FK_Worker_0 FOREIGN KEY (userId) REFERENCES User (userId) ON DELETE CASCADE;
 
+ALTER TABLE WorkerTransaction ADD CONSTRAINT FK_WorkerTransaction_0 FOREIGN KEY (workerId) REFERENCES Worker (workerId) ON DELETE CASCADE;
+ALTER TABLE WorkerTransaction ADD CONSTRAINT FK_WorkerTransaction_1 FOREIGN KEY (transactionId) REFERENCES Transaction (transactionId) ON DELETE CASCADE;
 
 ALTER TABLE Customer ADD CONSTRAINT FK_Customer_0 FOREIGN KEY (userId) REFERENCES User (userId) ON DELETE CASCADE;
 
+ALTER TABLE CustomerTransaction ADD CONSTRAINT FK_CustomerTransaction_0 FOREIGN KEY (customerId) REFERENCES Customer (customerId) ON DELETE CASCADE;
+ALTER TABLE CustomerTransaction ADD CONSTRAINT FK_CustomerTransaction_1 FOREIGN KEY (transactionId) REFERENCES Transaction (transactionId) ON DELETE CASCADE;
 
 ALTER TABLE Manager ADD CONSTRAINT FK_Manager_0 FOREIGN KEY (userId) REFERENCES User (userId) ON DELETE CASCADE;
 
