@@ -12,7 +12,7 @@ import com.mysql.jdbc.PreparedStatement;
 import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.object.ObjectLayer;
 
 public class CustomerManager {
