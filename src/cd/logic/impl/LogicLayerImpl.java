@@ -27,22 +27,35 @@ public class LogicLayerImpl implements LogicLayer {
 
 	@Override
 	public String employerLogin(Session session, String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		EmployerLoginCtrl ctrlVerifyEmployer = new EmployerLoginCtrl(objectLayer);
+		String ssid = null;
+		try {
+			ssid = ctrlVerifyEmployer.login(session, username, password);
+		} catch (CDException e) {
+			e.printStackTrace();
+		} // try-catch
+		
+		return ssid;
+	} // employerLogin
 
 	@Override
 	public String employeeLogin(Session session, String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		EmployeeLoginCtrl verifyEmployee = new EmployeeLoginCtrl(objectLayer);
+		String ssid = null;
+		try {
+			ssid = verifyEmployee.login(session, username, password);
+		} catch (CDException e) {
+			e.printStackTrace();
+		} // try-catch
+		return ssid;
+	} // employeeLogin
 
 	@Override
 	public String addEmployer(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber) {
-		// TODO Auto-generated method stub
+		
 		return null;
-	}
+	} 
 
 	@Override
 	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
