@@ -235,22 +235,96 @@ public class EmployeeManager {
     }
     
     public void storeEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
-		// TODO Auto-generated method stub
+    	String storeSQL = "insert into EmployerEmployee (employerId, employeeId) values (?, ?)";
+    	PreparedStatement statement = null;
+    	int rowCount;
+    	
+    	if (!employee.isPersistent()) throw new CDException("EmployeeManager.save: Cannot insert into EmployerEmployee if employee is not persistent.");
+    	else if (!employer.isPersistent()) throw new CDException("EmployeeManager.save: Cannot insert into EmployerEmployee if employer is not persistent.");
 		
-	}
+    	try {
+    		statement = (PreparedStatement) conn.prepareStatement(storeSQL);
+    		statement.setLong(1, employer.getId());
+    		statement.setLong(2, employee.getId());
+    		rowCount = statement.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new CDException("EmployeeManager.save: Could not insert into EmployerEmployee: " + e);
+    	} // try-catch
+    	
+    	if (rowCount == 0) throw new CDException("EmployeeManager.save: Could not insert into EmployerEmployee.");
+    	
+	} // storeEmployeeEmployedByEmployer
     
     public void deleteEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
-		// TODO Auto-generated method stub
+    	String deleteSQL = "delete from EmployerEmployee where employerId = ? and employeeId = ?";
+    	PreparedStatement statement;
+    	int rowCount;
+    	
+    	if (!employee.isPersistent()) return;
+    	else if (!employer.isPersistent()) return;
+    	
+    	try {
+    		statement = (PreparedStatement) conn.prepareStatement(deleteSQL);
+    		statement.setLong(1, employer.getId());
+    		statement.setLong(2, employee.getId());
+    		rowCount = statement.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new CDException("EmployeeManager.delete: Could not delete from EmployerEmployee: " + e);
+    	} // try-catch
+    	
+    	if (rowCount == 0) throw new CDException("EmployeeManager.delete: Could not delte from EmployerEmployee: employer and employee not associated.");
 		
-	}
+	} // deleteEmployeeEmployedByEmployer
     
     public List<Employee> restoreEmployeeEmployedByEmployer(Employer employer) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    	List<Employee> employees = new ArrayList<Employee>();
+    	String restoreSQL = "select from EmployerEmployee where employerId = ?";
+		PreparedStatement statement;
+		Employee employee = objectLayer.createEmployee();
+		
+		if (!employer.isPersistent()) throw new CDException("EmployeeManager.restore: Cannot restore employees from employer: employer not persistent.");
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(restoreSQL);
+			statement.setLong(1, employer.getId());
+			statement.execute();
+			ResultSet result = statement.getResultSet();
+			while (result.next()) {
+				employee.setId(result.getLong(2));
+				employee = objectLayer.findEmployee(employee).get(0);
+				employees.add(employee);
+			} // while
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CDException("EmployeeManager.restore: Cannot restore employees from EmployerEmployee: " + e);
+		} // try-catch
+    	
+    	return employees;
+	} // restoreEmployeeEmployedByEmployer
     
     public Employee restoreEmployeeFromTransaction(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    	String restoreSQL = "select from EmployeeTransaction where transactionId = ?";
+    	PreparedStatement statement;
+    	Employee employee = objectLayer.createEmployee();
+    	
+    	if (!transaction.isPersistent()) throw new CDException("EmployeeManager.restore: Cannot restore an employee from EmployeeTransaction: transaction is not persistent.");
+    	
+    	try {
+    		statement = (PreparedStatement) conn.prepareStatement(restoreSQL);
+    		statement.execute();
+    		ResultSet result = statement.getResultSet();
+    		while (result.next()) {
+    			employee.setId(result.getLong(1));
+    			employee = objectLayer.findEmployee(employee).get(0);
+    			return employee;
+    		} // while
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new CDException("EmployeeManager.restore: Could not restore employee from EmployeeTransaction: " + e);
+    	} // try-catch
+	
+    	return employee;
+	} // restoreEmployeeFromTransaction
 }

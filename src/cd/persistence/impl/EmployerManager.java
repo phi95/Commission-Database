@@ -28,18 +28,17 @@ public class EmployerManager {
     public void store( Employer employer ) 
             throws CDException
     {
-        String               insertUserSql = "insert into User ( fname, lname, userName, password, email, phoneNumber ) values ( ?, ?, ?, ?, ?, ? )";              
-        String               updateUserSql = "update User  set fname = ?, lname = ?, userName = ?, password = ?, email = ?, phoneNumber = ? where userId = ?";              
-        
-        String				 insertEmployerSql = "insert into Employer (userId) values ( ? )";
+        String insertUserSql = "insert into User ( fname, lname, userName, password, email, phoneNumber ) values ( ?, ?, ?, ?, ?, ? )";              
+        String updateUserSql = "update User  set fname = ?, lname = ?, userName = ?, password = ?, email = ?, phoneNumber = ? where userId = ?";              
+        String insertEmployerSql = "insert into Employer (userId) values ( ? )";
 
-        PreparedStatement    stmt;
-        int                  inscnt;
-        long                 userId;
+        PreparedStatement stmt;
+        int inscnt;
+        long userId;
         
         try {
             
-            if( !employer.isPersistent() )
+            if (!employer.isPersistent())
                 stmt = (PreparedStatement) conn.prepareStatement( insertUserSql );
             else
                 stmt = (PreparedStatement) conn.prepareStatement( updateUserSql );
@@ -234,7 +233,27 @@ public class EmployerManager {
     }
     
     public Employer restoreEmployerFromEmployee(Employee employee) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    	String restoreSQL = "select from EmployerEmployee where employeeId = ?";
+    	PreparedStatement statement;
+    	Employer employer = objectLayer.createEmployer();
+    	
+    	if (!employee.isPersistent()) throw new CDException("EmployerManager.restore: Cannot restore employer from non-persistent employee.");
+    	
+    	try {
+    		statement = (PreparedStatement) conn.prepareStatement(restoreSQL);
+    		statement.setLong(1, employee.getId());
+    		statement.execute();
+    		ResultSet result = statement.getResultSet();
+    		while (result.next()) {
+    			employer.setId(result.getLong(1));
+    			employer = objectLayer.findEmployer(employer).get(0);
+    			return employer;
+    		} // while
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		throw new CDException("EmployerManager.restore: Cannot restore employer from EmployerEmployee: " + e);
+    	} // try-catch
+    	
+    	return employer;
+	} // restoreEmployerFromEmployee
 }
