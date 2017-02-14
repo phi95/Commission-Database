@@ -2,14 +2,14 @@ package cd.entity;
 
 import cd.CDException;
 
-public interface Worker extends User {
-    /** Return the worker's manager.
-     * @return the worker's manager
+public interface Employee extends User {
+    /** Return the employee's employer.
+     * @return the employee's employer
      */
-	public Manager getManager();
+	public Employer getEmployer();
 	
 	/** Set the worker's manager.
-     * @param manager the new manager of this worker
+     * @param employer the new manager of this worker
      */
-	public void setManager(Manager manager);
+	public void setEmployer(Employer employer);
 }

@@ -3,8 +3,8 @@ package cd.persistence;
 import java.util.List;
 import cd.CDException;
 import cd.entity.Customer;
-import cd.entity.Manager;
-import cd.entity.Worker;
+import cd.entity.Employer;
+import cd.entity.Employee;
 import cd.entity.Transaction;
 import cd.CDException;
 
@@ -34,50 +34,50 @@ public interface PersistenceLayer {
 	public void deleteCustomer(Customer customer) throws CDException;
 
 	/**
-	 * Restore all Manager objects that match attributes of model manager.
-	 * @param modelManager the model Manager; if null is provided, all Manager objects will be returned.
-	 * @return a List of the located Manager objects.
+	 * Restore all Employer objects that match attributes of model employer.
+	 * @param modelEmployer the model Employer; if null is provided, all Employer objects will be returned.
+	 * @return a List of the located Employer objects.
 	 * @throws CDException
 	 */
-	public List<Manager> restoreManager(Manager modelManager) throws CDException;
+	public List<Employer> restoreEmployer(Employer modelEmployer) throws CDException;
 	
 	/**
-	 * Store a given Manager object in persistent data storage. If the object is already persistent,
+	 * Store a given Employer object in persistent data storage. If the object is already persistent,
 	 * the persistent object is updated.
-	 * @param manager the Manager to be stored
+	 * @param employer the Employer to be stored
 	 * @throws CDException
 	 */
-	public void storeManager(Manager manager) throws CDException;
+	public void storeEmployer(Employer employer) throws CDException;
 	
 	/**
-	 * Delete a given Manager object from persistent data storage.
-	 * @param manager the Manager to be deleted.
+	 * Delete a given Employer object from persistent data storage.
+	 * @param employer the Employer to be deleted.
 	 * @throws CDException
 	 */
-	public void deleteManager(Manager manager) throws CDException;
+	public void deleteEmployer(Employer employer) throws CDException;
 
 	/**
-	 * Restore all Worker objects that match attributes of the model worker.
-	 * @param modelWorker the model worker; if null is provided, all Worker objects will be returned.
-	 * @return a List of the located Worker objects.
+	 * Restore all Employee objects that match attributes of the model employee.
+	 * @param modelEmployee the model employee; if null is provided, all Employee objects will be returned.
+	 * @return a List of the located Employee objects.
 	 * @throws CDException
 	 */
-	public List<Worker> restoreWorker(Worker modelWorker) throws CDException;
+	public List<Employee> restoreEmployee(Employee modelEmployee) throws CDException;
 	
 	/**
-	 * Store a given Worker object in persistent data storage. If the object is already persistent,
+	 * Store a given Employee object in persistent data storage. If the object is already persistent,
 	 * the persistent object is updated.
-	 * @param worker the Worker to be stored.
+	 * @param employee the Employee to be stored.
 	 * @throws CDException
 	 */
-	public void storeWorker(Worker worker) throws CDException;
+	public void storeEmployee(Employee employee) throws CDException;
 	
 	/**
-	 * Delete a given Worker from persistent data storage.
-	 * @param worker The worker to be deleted.
+	 * Delete a given Employee from persistent data storage.
+	 * @param employee The employee to be deleted.
 	 * @throws CDException
 	 */
-	public void deleteWorker(Worker worker) throws CDException;
+	public void deleteEmployee(Employee employee) throws CDException;
 
 	/**
 	 * Restore all Transactions that match attributes of the model transaction.
@@ -105,26 +105,26 @@ public interface PersistenceLayer {
 	/**
 	 *  Associations 
 	 *  
-	 *  Worker      -- employedBy  --> Manager;     Multiplicity: 1...* - 1
-	 *  Transaction -- completedBy --> Worker;      Multiplicity: 1...* - 1
+	 *  Employee      -- employedBy  --> Employer;     Multiplicity: 1...* - 1
+	 *  Transaction -- completedBy --> Employee;      Multiplicity: 1...* - 1
 	 *  Transaction -- orderedBy   --> Customer;    Multiplicity: 1...* - 1
 	 */
 	
 	/**
-	 * Store a link between a Worker employed by a Manager.
-	 * @param worker The worker to be linked.
-	 * @param manager The manager to be linked.
+	 * Store a link between a Employee employed by a Employer.
+	 * @param employee The employee to be linked.
+	 * @param employer The employer to be linked.
 	 * @throws CDException
 	 */
-	public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException;
+	public void storeEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException;
 	
 	/**
-	 * Store a link between a Transaction completed by a Worker.
+	 * Store a link between a Transaction completed by a Employee.
 	 * @param transaction The transaction to be linked.
-	 * @param worker The worker to be linked.
+	 * @param employee The employee to be linked.
 	 * @throws CDException
 	 */
-	public void storeTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException;
+	public void storeTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException;
 	
 	/**
 	 * Store a link between a Transaction ordered by a Customer.
@@ -135,20 +135,20 @@ public interface PersistenceLayer {
 	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException;
 	
 	/**
-	 * Delete a link between a Worker employed by a Manager
-	 * @param worker The worker whose link is to be deleted.
-	 * @param manager The manager whose link is to be deleted.
+	 * Delete a link between a Employee employed by a Employer
+	 * @param employee The employee whose link is to be deleted.
+	 * @param employer The employer whose link is to be deleted.
 	 * @throws CDException
 	 */
-	public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException;
+	public void deleteEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException;
 	
 	/**
-	 * Delete a link between a Transaction completed by a Worker.
+	 * Delete a link between a Transaction completed by a Employee.
 	 * @param transaction The transaction
-	 * @param worker The worker
+	 * @param employee The employee
 	 * @throws CDException
 	 */
-	public void deleteTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException;
+	public void deleteTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException;
 	
 	/**
 	 * Delete a link between Transaction ordered by a customer
@@ -159,28 +159,28 @@ public interface PersistenceLayer {
 	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException;	
 	
 	/**
-	 * Return a List of workers employed by a given Manager.
-	 * @param manager The manager.
-	 * @return A List of workers.
+	 * Return a List of employees employed by a given Employer.
+	 * @param employer The employer.
+	 * @return A List of employees.
 	 * @throws CDException
 	 */
-	public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException;
+	public List<Employee> restoreEmployeeEmployedByEmployer(Employer employer) throws CDException;
 
 	/**
-	 * Return the Manager who employs a particular worker.
-	 * @param worker The worker.
-	 * @return The manager who employs the worker.
+	 * Return the Employer who employs a particular employee.
+	 * @param employee The employee.
+	 * @return The employer who employs the employee.
 	 * @throws CDException
 	 */
-	public Manager restoreManagerFromWorker(Worker worker) throws CDException;
+	public Employer restoreEmployerFromEmployee(Employee employee) throws CDException;
 	
 	/**
-	 * Return a List of Transactions completed by a particular worker.
-	 * @param worker The worker.
+	 * Return a List of Transactions completed by a particular employee.
+	 * @param employee The employee.
 	 * @return A List of Transactions.
 	 * @throws CDException
 	 */
-	public List<Transaction> restoreTransactionCompletedByWorker(Worker worker) throws CDException;
+	public List<Transaction> restoreTransactionCompletedByEmployee(Employee employee) throws CDException;
 	
 	/**
 	 * Return a List of Transactions ordered by a particular Customer.
@@ -199,11 +199,11 @@ public interface PersistenceLayer {
 	public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException;
 	
 	/**
-	 * Return the worker who completed a particular transaction.
+	 * Return the employee who completed a particular transaction.
 	 * @param transaction The transaction.
-	 * @return THe workered who completed the transaction.
+	 * @return THe employee who completed the transaction.
 	 * @throws CDException
 	 */
-	public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException;
+	public Employee restoreEmployeeFromTransaction(Transaction transaction) throws CDException;
 	
 }

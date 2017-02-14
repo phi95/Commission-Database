@@ -1,27 +1,27 @@
 package cd.entity.impl;
 
 import cd.CDException;
-import cd.entity.Manager;
-import cd.entity.Worker;
+import cd.entity.Employer;
+import cd.entity.Employee;
 
-public class WorkerImpl extends UserImpl implements Worker {
-	Manager manager;
+public class EmployeeImpl extends UserImpl implements Employee {
+	Employer manager;
 	
-	public WorkerImpl() {
+	public EmployeeImpl() {
 		super();
 	}
 	
-	public WorkerImpl(String fname, String lname, String userName, String password, String email, String phoneNumber) {
+	public EmployeeImpl(String fname, String lname, String userName, String password, String email, String phoneNumber) {
 		super(fname, lname, userName, password, email, phoneNumber);
 	}
 
 	@Override
-	public Manager getManager() {
+	public Employer getEmployer() {
 		return manager;
 	}
 
 	@Override
-	public void setManager(Manager manager) {
+	public void setEmployer(Employer manager) {
 		this.manager = manager;
 	}
 }

@@ -8,6 +8,7 @@ import cd.object.ObjectLayer;
 import cd.object.impl.ObjectLayerImpl;
 import cd.persistence.PersistenceLayer;
 import cd.persistence.impl.PersistenceLayerImpl;
+import cd.session.Session;
 
 public class LogicLayerImpl implements LogicLayer {
 	private ObjectLayer objectLayer = null;
@@ -23,4 +24,10 @@ public class LogicLayerImpl implements LogicLayer {
     {
         this.objectLayer = objectLayer;
     }
+
+	@Override
+	public String employerLogin(Session session, String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

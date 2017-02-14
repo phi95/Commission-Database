@@ -10,29 +10,29 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import cd.CDException;
-import cd.entity.Manager;
+import cd.entity.Employer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.object.ObjectLayer;
 
-public class WorkerManager {
+public class EmployeeManager {
 
     private ObjectLayer objectLayer = null;
     private Connection  conn = null;
     
-    public WorkerManager( Connection conn, ObjectLayer objectLayer )
+    public EmployeeManager( Connection conn, ObjectLayer objectLayer )
     {
         this.conn = conn;
         this.objectLayer = objectLayer;
     }
     
-    public void store( Worker worker ) 
+    public void store( Employee employee) 
             throws CDException
     {
         String               insertUserSql = "insert into User ( fname, lname, userName, password, email, phoneNumber ) values ( ?, ?, ?, ?, ?, ? )";              
         String               updateUserSql = "update User  set fname = ?, lname = ?, userName = ?, password = ?, email = ?, phoneNumber = ? where userId = ?";              
         
-        String				 insertWorkerSql = "insert into Worker (userId) values ( ? )";
+        String				 insertEmployeeSql = "insert into Employee (userId) values ( ? )";
 
         PreparedStatement    stmt;
         int                  inscnt;
@@ -40,48 +40,48 @@ public class WorkerManager {
         
         try {
             
-            if( !worker.isPersistent() )
+            if( !employee.isPersistent() )
                 stmt = (PreparedStatement) conn.prepareStatement( insertUserSql );
             else
                 stmt = (PreparedStatement) conn.prepareStatement( updateUserSql );
             
-            if( worker.getFirstName() != null )
-                stmt.setString( 1, worker.getFirstName() );
+            if( employee.getFirstName() != null )
+                stmt.setString( 1, employee.getFirstName() );
             else 
-                throw new CDException( "WorkerManager.save: can't save a User: fname undefined" );
+                throw new CDException( "EmployeeManager.save: can't save a User: fname undefined" );
 
-            if( worker.getLastName() != null )
-                stmt.setString( 2, worker.getLastName() );
+            if( employee.getLastName() != null )
+                stmt.setString( 2, employee.getLastName() );
             else
-                throw new CDException( "WorkerManager.save: can't save a User: last name undefined" );
+                throw new CDException( "EmployeeManager.save: can't save a User: last name undefined" );
 
-            if( worker.getUserName() != null )
-                stmt.setString( 3, worker.getUserName() );
+            if( employee.getUserName() != null )
+                stmt.setString( 3, employee.getUserName() );
             else 
-                throw new CDException( "WorkerManager.save: can't save a User: username undefined" );
+                throw new CDException( "EmployeeManager.save: can't save a User: username undefined" );
             
-            if( worker.getPassword() != null )
-                stmt.setString( 4, worker.getPassword() );
+            if( employee.getPassword() != null )
+                stmt.setString( 4, employee.getPassword() );
             else
-                throw new CDException( "WorkerManager.save: can't save a User: password undefined" );
+                throw new CDException( "EmployeeManager.save: can't save a User: password undefined" );
 
-            if( worker.getEmailAddress() != null )
-                stmt.setString( 5,  worker.getEmailAddress() );
+            if( employee.getEmailAddress() != null )
+                stmt.setString( 5,  employee.getEmailAddress() );
             else
-                throw new CDException( "WorkerManager.save: can't save a User: email undefined" );
+                throw new CDException( "EmployeeManager.save: can't save a User: email undefined" );
             
-            if( worker.getPhoneNumber() != null )
-                stmt.setString( 6, worker.getPhoneNumber() );
+            if( employee.getPhoneNumber() != null )
+                stmt.setString( 6, employee.getPhoneNumber() );
             else
                 stmt.setNull(6, java.sql.Types.VARCHAR);
 
             
-            if( worker.isPersistent() )
-                stmt.setLong( 7, worker.getId() );
+            if( employee.isPersistent() )
+                stmt.setLong( 7, employee.getId() );
 
             inscnt = stmt.executeUpdate();
 
-            if( !worker.isPersistent() ) {
+            if( !employee.isPersistent() ) {
                 // in case this this object is stored for the first time,
                 // we need to establish its persistent identifier (primary key)
                 if( inscnt == 1 ) {
@@ -94,8 +94,8 @@ public class WorkerManager {
                             // retrieve the last insert auto_increment value
                             userId = r.getLong( 1 );
                             if( userId > 0 ){
-                                worker.setId( userId ); // set this person's db id (proxy object)
-                                stmt = (PreparedStatement) conn.prepareStatement( insertWorkerSql );
+                                employee.setId( userId ); // set this person's db id (proxy object)
+                                stmt = (PreparedStatement) conn.prepareStatement( insertEmployeeSql );
                                 stmt.setLong(1,userId);
                                 inscnt = stmt.executeUpdate();
                             }
@@ -105,58 +105,58 @@ public class WorkerManager {
             }
             else {
                 if( inscnt < 1 )
-                    throw new CDException( "WorkerManager.save: failed to save a worker" ); 
+                    throw new CDException( "EmployeeManager.save: failed to save a employee" ); 
             }
         }
         catch( SQLException e ) {
             e.printStackTrace();
-            throw new CDException( "WorkerManager.save: failed to save an worker: " + e );
+            throw new CDException( "EmployeeManager.save: failed to save an employee: " + e );
         }
     }
 
-    public List<Worker> restore( Worker modelWorker ) 
+    public List<Employee> restore( Employee modelEmployee ) 
             throws CDException
     {
-        String       selectOfficerSql = "select User.userId, fname, lname, userName, password, email, address, age, Worker.workerId from User, Worker where User.userId = Worker.userId";
+        String       selectOfficerSql = "select User.userId, fname, lname, userName, password, email, address, age, Employee.employeeId from User, Employee where User.userId = Employee.userId";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
-        List<Worker> workers = new ArrayList<Worker>();
+        List<Employee> employees = new ArrayList<Employee>();
         
         condition.setLength( 0 );
         
         // form the query based on the given Person object instance
         query.append( selectOfficerSql );
         
-        if( modelWorker != null ) {
-            if( modelWorker.getId() >= 0 ) // id is unique, so it is sufficient to get a person
-                query.append( " and User.userId = '" + modelWorker.getId() );
-            if( modelWorker.getUserName() != null ) // userName is unique, so it is sufficient to get a person
-                query.append( " and userName = '" + modelWorker.getUserName() + "'" );
+        if( modelEmployee != null ) {
+            if( modelEmployee.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and User.userId = '" + modelEmployee.getId() );
+            if( modelEmployee.getUserName() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and userName = '" + modelEmployee.getUserName() + "'" );
                 
-            if( modelWorker.getFirstName() != null ) {
+            if( modelEmployee.getFirstName() != null ) {
             	condition.append(" and ");
-                condition.append( " fname = '" + modelWorker.getFirstName() + "'" );
+                condition.append( " fname = '" + modelEmployee.getFirstName() + "'" );
             }
 
-                if( modelWorker.getLastName() != null ) {
+                if( modelEmployee.getLastName() != null ) {
                     condition.append( " and " );
-                    condition.append( " lname = '" + modelWorker.getLastName() + "'" );
+                    condition.append( " lname = '" + modelEmployee.getLastName() + "'" );
                 }
             	
-                if( modelWorker.getPassword() != null ){
+                if( modelEmployee.getPassword() != null ){
                     condition.append( " and " );
-                    condition.append( " password = '" + modelWorker.getPassword() + "'" );
+                    condition.append( " password = '" + modelEmployee.getPassword() + "'" );
                 }
 
-                if( modelWorker.getEmailAddress() != null ) {
+                if( modelEmployee.getEmailAddress() != null ) {
                     condition.append( " and " );
-                    condition.append( " email = '" + modelWorker.getEmailAddress() + "'" );
+                    condition.append( " email = '" + modelEmployee.getEmailAddress() + "'" );
                 }
 
-                if( modelWorker.getPhoneNumber() != null ) {
+                if( modelEmployee.getPhoneNumber() != null ) {
                     condition.append( " and " );
-                    condition.append( " address = '" + modelWorker.getPhoneNumber() + "'" );
+                    condition.append( " address = '" + modelEmployee.getPhoneNumber() + "'" );
                 }
 
                 if( condition.length() > 0 ) {
@@ -191,24 +191,24 @@ public class WorkerManager {
                     email = rs.getString( 6 );
                     phoneNumber = rs.getString( 7 );
 
-                    Worker worker = objectLayer.createWorker( fname, lname, userName, password, email, phoneNumber );
-                    worker.setId( userId );
-                    workers.add( worker );
+                    Employee employee = objectLayer.createEmployee( fname, lname, userName, password, email, phoneNumber );
+                    employee.setId( userId );
+                    employees.add( employee );
 
                 }
                 
-                return workers;
+                return employees;
             }
         }
         catch( Exception e ) {      // just in case...
-            throw new CDException( "WorkerManager.restore: Could not restore persistent worker object; Root cause: " + e );
+            throw new CDException( "EmployeeManager.restore: Could not restore persistent employee object; Root cause: " + e );
         }
         
         // if we get to this point, it's an error
-        throw new CDException( "WorkerManager.restore: Could not restore persistent worker objects" );
+        throw new CDException( "EmployeeManager.restore: Could not restore persistent employee objects" );
     }
     
-    public void delete( Worker worker ) 
+    public void delete( Employee employee ) 
             throws CDException
     {
         String               deleteUserSql = "delete t1 from User as t1 "
@@ -217,39 +217,39 @@ public class WorkerManager {
         int                  inscnt;
         
         // form the query based on the given Person object instance
-        if( !worker.isPersistent() ) // is the Person object persistent?  If not, nothing to actually delete
+        if( !employee.isPersistent() ) // is the Person object persistent?  If not, nothing to actually delete
             return;
         
         try {
             stmt = (PreparedStatement) conn.prepareStatement( deleteUserSql );        
-            stmt.setLong( 1, worker.getId() );          
+            stmt.setLong( 1, employee.getId() );          
             inscnt = stmt.executeUpdate();
             
             if( inscnt == 0 ) {
-                throw new CDException( "WorkerManager.delete: failed to delete this worker from User" );
+                throw new CDException( "EmployeeManager.delete: failed to delete this employee from User" );
             }
         }
         catch( SQLException e ) {
-            throw new CDException( "WorkerManager.delete: failed to delete this Worker: " + e.getMessage() );
+            throw new CDException( "EmployeeManager.delete: failed to delete this Employee: " + e.getMessage() );
         }
     }
     
-    public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
+    public void storeEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
 		// TODO Auto-generated method stub
 		
 	}
     
-    public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
+    public void deleteEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
 		// TODO Auto-generated method stub
 		
 	}
     
-    public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException {
+    public List<Employee> restoreEmployeeEmployedByEmployer(Employer employer) throws CDException {
 		// TODO Auto-generated method stub
 		return null;
 	}
     
-    public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException {
+    public Employee restoreEmployeeFromTransaction(Transaction transaction) throws CDException {
 		// TODO Auto-generated method stub
 		return null;
 	}

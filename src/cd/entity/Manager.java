@@ -1,6 +1,6 @@
 package cd.entity;
 
 
-public interface Manager extends User {
+public interface Employer extends User {
 	
 }

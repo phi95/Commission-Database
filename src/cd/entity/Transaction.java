@@ -42,16 +42,16 @@ public interface Transaction extends Persistable {
 	public void setCustomer(Customer customer);
 		
 	/**
-	 * Returns the worker this transaction is associated with.
-	 * @return the transaction's worker
+	 * Returns the employee this transaction is associated with.
+	 * @return the transaction's employee
 	 */
-	public Worker getWorker();
+	public Employee getEmployee();
 	
 	/**
-	 * Set transaction's worker.
-	 * @param worker set the worker this transaction is associated with
+	 * Set transaction's employee.
+	 * @param employee set the employee this transaction is associated with
 	 */
-	public void setWorker(Worker worker);
+	public void setEmployee(Employee employee);
 
 	/**
 	 * Accesses the amount of money earned from this commission.

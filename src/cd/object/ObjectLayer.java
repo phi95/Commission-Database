@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 import cd.CDException;
 import cd.entity.Customer;
-import cd.entity.Manager;
+import cd.entity.Employer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.persistence.PersistenceLayer;
 import cd.CDException;
 
@@ -54,57 +54,57 @@ public interface ObjectLayer {
     public void deleteCustomer( Customer customer ) throws CDException;
 
 	/**
-	 * Creates a new manager object with the given attributes.
+	 * Creates a new employer object with the given attributes.
 	 * @param firstName the first name
 	 * @param lastName the last name
 	 * @param userName the username 
 	 * @param password the password 
 	 * @param email the customer's email address.
 	 * @param phoneNumbers the customer's phone number.
-	 * @return A new Manager object with the given attributes.
+	 * @return A new Employer object with the given attributes.
 	 * @throws CDException
 	 */
-	public Manager createManager(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
+	public Employer createEmployer(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
 
 	/**
-	 * Creates a Manager object with undefined attributes.
-	 * @return A Manager object.
+	 * Creates a Employer object with undefined attributes.
+	 * @return A Employer object.
 	 */
-	public Manager createManager();
+	public Employer createEmployer();
 	
 	/**
-	 * Creates a list of Manager objects that satisfy the search criteria.
-	 * @param modelManager the Manager object that specifies the search criteria.
-	 * @return A list of managers that match the criteria(s).
+	 * Creates a list of Employer objects that satisfy the search criteria.
+	 * @param modelEmployer the Employer object that specifies the search criteria.
+	 * @return A list of employers that match the criteria(s).
 	 * @throws CDException may happen if there is a problem retrieving the requested object(s).
 	 */
-	public List<Manager> findManager(Manager modelManager) throws CDException;
+	public List<Employer> findEmployer(Employer modelEmployer) throws CDException;
 	
 	/**
-	 * Stores the given Manager in persistent data storage.
-	 * @param manager The object to be stored.
+	 * Stores the given Employer in persistent data storage.
+	 * @param employer The object to be stored.
 	 * @throws CDException may happen if there is a problem with storing the object.
 	 */
-	public void storeManager(Manager manager) throws CDException;
+	public void storeEmployer(Employer employer) throws CDException;
 	
 	/**
-     * Delete this Manager object.
-     * @param manager the object to be deleted.
+     * Delete this Employer object.
+     * @param employer the object to be deleted.
      * @throws CDException in case there is a problem with the deletion of the object
      */
-    public void deleteManager( Manager manager ) throws CDException;
+    public void deleteEmployer( Employer employer ) throws CDException;
 	
 	/**
 	 * Creates a Transaction object with the given attributes.
 	 * @param date The date this transaction occurred.
 	 * @param description A description of this transaction.
 	 * @param customer The customer ordering the commission.
-	 * @param worker The worker intaking the commission.
+	 * @param employee The employee intaking the commission.
 	 * @param transactionAmount The amount paid for the commission.
 	 * @return A Transaction object.
 	 * @throws CDException
 	 */
-	public Transaction createTransaction(Customer customer, Worker worker, Date date, String description, double transactionAmount) throws CDException; 
+	public Transaction createTransaction(Customer customer, Employee employee, Date date, String description, double transactionAmount) throws CDException; 
 	
 	/**
 	 * Creates a Transaction object with undefined attributes.
@@ -135,46 +135,46 @@ public interface ObjectLayer {
     public void deleteTransaction( Transaction transaction ) throws CDException;
 	
 	/**
-	 * Creates a Worker object with the given attributes.
+	 * Creates a Employee object with the given attributes.
 	 * @param firstName the first name
 	 * @param lastName the last name
 	 * @param userName the username 
 	 * @param password the password 
 	 * @param email the customer's email address.
 	 * @param phoneNumbers the customer's phone number.
-	 * @return A new Worker object with the given attributes.
+	 * @return A new Employee object with the given attributes.
 	 * @throws CDException
 	 */
-	public Worker createWorker(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
+	public Employee createEmployee(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
 	
 	/**
-	 * Creates a Worker with undefined attributes.
-	 * @return A Worker object.
+	 * Creates a Employee with undefined attributes.
+	 * @return A Employee object.
 	 */
-	public Worker createWorker();
+	public Employee createEmployee();
 
 	/**
-	 * Retrieves a List of all workers that match the specified search criteria.
-	 * @param modelTransaction A Worker object that contains the search criteria.
-	 * @return A List of workers.
+	 * Retrieves a List of all employees that match the specified search criteria.
+	 * @param modelTransaction A Employee object that contains the search criteria.
+	 * @return A List of employees.
 	 * @throws CDException
 	 */
 	
-	public List<Worker> findWorker(Worker modelWorker) throws CDException;
+	public List<Employee> findEmployee(Employee modelEmployee) throws CDException;
 	
 	/**
-	 * Stores a Worker object into persistent data storage.
+	 * Stores a Employee object into persistent data storage.
 	 * @param transaction The object to be stored.
 	 * @throws CDException
 	 */
-	public void storeWorker(Worker worker) throws CDException;
+	public void storeEmployee(Employee employee) throws CDException;
 	
 	/**
-     * Delete this Worker object.
-     * @param worker the object to be deleted.
+     * Delete this Employee object.
+     * @param employee the object to be deleted.
      * @throws CDException in case there is a problem with the deletion of the object
      */
-    public void deleteWorker( Worker worker ) throws CDException;
+    public void deleteEmployee( Employee employee ) throws CDException;
     
     /**
      * Returning this ObectLayer's PersistenceLayer

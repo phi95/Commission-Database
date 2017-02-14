@@ -6,24 +6,24 @@ import java.sql.Connection;
 
 import cd.CDException;
 import cd.entity.Customer;
-import cd.entity.Manager;
+import cd.entity.Employer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.object.ObjectLayer;
 import cd.persistence.PersistenceLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
 	private CustomerManager customerManager = null;
-	private ManagerManager managerManager = null;
+	private EmployerManager employerManager = null;
 	private TransactionManager transactionManager = null;
-	private WorkerManager workerManager = null;
+	private EmployeeManager employeeManager = null;
 	
 	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer){
 		customerManager = new CustomerManager(conn, objectLayer);
-		managerManager = new ManagerManager(conn, objectLayer);
+		employerManager = new EmployerManager(conn, objectLayer);
 		transactionManager = new TransactionManager(conn, objectLayer);
-		workerManager = new WorkerManager(conn, objectLayer);
+		employeeManager = new EmployeeManager(conn, objectLayer);
 	}
 	
 	@Override
@@ -42,33 +42,33 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public List<Manager> restoreManager(Manager modelManager) throws CDException {
-		return managerManager.restore(modelManager);
+	public List<Employer> restoreEmployer(Employer modelEmployer) throws CDException {
+		return employerManager.restore(modelEmployer);
 	}
 
 	@Override
-	public void storeManager(Manager manager) throws CDException {
-		managerManager.store(manager);
+	public void storeEmployer(Employer employer) throws CDException {
+		employerManager.store(employer);
 	}
 
 	@Override
-	public void deleteManager(Manager manager) throws CDException {
-		managerManager.delete(manager);
+	public void deleteEmployer(Employer employer) throws CDException {
+		employerManager.delete(employer);
 	}
 
 	@Override
-	public List<Worker> restoreWorker(Worker modelWorker) throws CDException {
-		return workerManager.restore(modelWorker);
+	public List<Employee> restoreEmployee(Employee modelEmployee) throws CDException {
+		return employeeManager.restore(modelEmployee);
 	}
 
 	@Override
-	public void storeWorker(Worker worker) throws CDException {
-		workerManager.store(worker);
+	public void storeEmployee(Employee employee) throws CDException {
+		employeeManager.store(employee);
 	}
 
 	@Override
-	public void deleteWorker(Worker worker) throws CDException {
-		workerManager.delete(worker);
+	public void deleteEmployee(Employee employee) throws CDException {
+		employeeManager.delete(employee);
 	}
 
 	@Override
@@ -87,13 +87,13 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public void storeWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		workerManager.storeWorkerEmployedByManager(worker, manager);
+	public void storeEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
+		employeeManager.storeEmployeeEmployedByEmployer(employee, employer);
 	}
 
 	@Override
-	public void storeTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		transactionManager.storeTransactionCompletedByWorker(transaction, worker);
+	public void storeTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException {
+		transactionManager.storeTransactionCompletedByEmployee(transaction, employee);
 	}
 
 	@Override
@@ -103,13 +103,13 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public void deleteWorkerEmployedByManager(Worker worker, Manager manager) throws CDException {
-		workerManager.deleteWorkerEmployedByManager(worker, manager);
+	public void deleteEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
+		employeeManager.deleteEmployeeEmployedByEmployer(employee, employer);
 	}
 
 	@Override
-	public void deleteTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		transactionManager.deleteTransactionCompletedByWorker(transaction, worker);
+	public void deleteTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException {
+		transactionManager.deleteTransactionCompletedByEmployee(transaction, employee);
 	}
 
 	@Override
@@ -118,18 +118,18 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public List<Worker> restoreWorkerEmployedByManager(Manager manager) throws CDException {
-		return workerManager.restoreWorkerEmployedByManager(manager);
+	public List<Employee> restoreEmployeeEmployedByEmployer(Employer employer) throws CDException {
+		return employeeManager.restoreEmployeeEmployedByEmployer(employer);
 	}
 
 	@Override
-	public Manager restoreManagerFromWorker(Worker worker) throws CDException {
-		return managerManager.restoreManagerFromWorker(worker);
+	public Employer restoreEmployerFromEmployee(Employee employee) throws CDException {
+		return employerManager.restoreEmployerFromEmployee(employee);
 	}
 
 	@Override
-	public List<Transaction> restoreTransactionCompletedByWorker(Worker worker) throws CDException {
-		return transactionManager.restoreTransactionCompletedByWorker(worker);
+	public List<Transaction> restoreTransactionCompletedByEmployee(Employee employee) throws CDException {
+		return transactionManager.restoreTransactionCompletedByEmployee(employee);
 	}
 
 	@Override
@@ -143,8 +143,8 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public Worker restoreWorkerFromTransaction(Transaction transaction) throws CDException {
-		return workerManager.restoreWorkerFromTransaction(transaction);
+	public Employee restoreEmployeeFromTransaction(Transaction transaction) throws CDException {
+		return employeeManager.restoreEmployeeFromTransaction(transaction);
 	}
 
 }

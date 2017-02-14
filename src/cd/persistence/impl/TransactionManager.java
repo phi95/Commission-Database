@@ -13,7 +13,10 @@ import com.mysql.jdbc.PreparedStatement;
 import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
+import cd.entity.impl.CustomerImpl;
+import cd.entity.impl.TransactionImpl;
+import cd.entity.impl.EmployeeImpl;
 import cd.object.ObjectLayer;
 
 public class TransactionManager {
@@ -120,7 +123,7 @@ public class TransactionManager {
 			statement = con.createStatement();
 			if (statement.execute(query.toString())) {
 				long transactionId;
-				Worker worker = modelTransaction.getWorker();
+				Employee employee = modelTransaction.getEmployee();
 				Customer customer = modelTransaction.getCustomer();
 				Date date;
 				String description;
@@ -140,10 +143,10 @@ public class TransactionManager {
 					transaction.setTransactionAmount(transactionAmount);
 					
 					if (customer == null) customer = objectLayer.getPersistence().restoreCustomerFromTransaction(transaction);
-					if (worker == null) worker = objectLayer.getPersistence().restoreWorkerFromTransaction(transaction);
+					if (employee == null) employee = objectLayer.getPersistence().restoreEmployeeFromTransaction(transaction);
 					
 					transaction.setCustomer(customer);
-					transaction.setWorker(worker);
+					transaction.setEmployee(employee);
 					transactionList.add(transaction);
 				} // while
 				return transactionList;
@@ -175,26 +178,26 @@ public class TransactionManager {
 		} // catch
 	} // delete
 	
-	public void storeTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		String storeSQL = "insert into WorkerTransaction (workerId, transactionId) values (?, ?)";
+	public void storeTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException {
+		String storeSQL = "insert into EmployeeTransaction (employeeId, transactionId) values (?, ?)";
 		PreparedStatement statement = null;
 		int rowCount;
 		
 		if (!transaction.isPersistent()) throw new CDException("TransactionManager.save: transaction is not persistent.");
-		else if (!worker.isPersistent()) throw new CDException("TransactionManager,save: worker is not persistent.");
+		else if (!employee.isPersistent()) throw new CDException("TransactionManager,save: employee is not persistent.");
 		
 		try {
 			statement = (PreparedStatement) con.prepareStatement(storeSQL);
-			statement.setLong(1, worker.getId());
+			statement.setLong(1, employee.getId());
 			statement.setLong(2, transaction.getId());
 			rowCount = statement.executeUpdate();
 		} catch(SQLException e){
 			e.printStackTrace();
-			throw new CDException("TransactionManager.save: failed to insert into WorkerTransaction: " + e);
+			throw new CDException("TransactionManager.save: failed to insert into EmployeeTransaction: " + e);
 		} // try-catch;
 		
-		if (rowCount < 1) throw new CDException("TransactionManager.save: failed to insert into WorkerTransaction");
-	} // storeTransactionCompletedByWorker
+		if (rowCount < 1) throw new CDException("TransactionManager.save: failed to insert into EmployeeTransaction");
+	} // storeTransactionCompletedByEmployee
 	
 	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
 		String storeSQL = "insert into CustomerTransaction (customerId, transactionId) values (?, ?)";
@@ -202,7 +205,7 @@ public class TransactionManager {
 		int rowCount;
 		
 		if (!transaction.isPersistent()) throw new CDException("TransactionManager.save: transaction is not persistent.");
-		else if (!customer.isPersistent()) throw new CDException("TransactionManager.save: worker is not persistent.");
+		else if (!customer.isPersistent()) throw new CDException("TransactionManager,save: employee is not persistent.");
 		
 		try {
 			statement = (PreparedStatement) con.prepareStatement(storeSQL);
@@ -217,31 +220,31 @@ public class TransactionManager {
 		if (rowCount < 1) throw new CDException("TransactionManager.save: failed to insert into CustomerTransaction");
 	} // storeTransactionOrderedByCustomer
 	
-	public void deleteTransactionCompletedByWorker(Transaction transaction, Worker worker) throws CDException {
-		String deleteSQL = "delete from WorkerTransaction where workerId = ? and transactionId = ?";
+	public void deleteTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException {
+		String deleteSQL = "delete from EmployeeTransaction where employeeId = ? and transactionId = ?";
 		PreparedStatement statement = null;
 		int rowCount;
 		
 		/* No need to delete if this element isn't persistent. */
 		if (!transaction.isPersistent()) return;
-		else if (!worker.isPersistent()) return;
+		else if (!employee.isPersistent()) return;
 		
 		try {
 			statement = (PreparedStatement) con.prepareStatement(deleteSQL);
-			statement.setLong(1, worker.getId());
+			statement.setLong(1, employee.getId());
 			statement.setLong(2, transaction.getId());
 			rowCount = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new CDException("TransactionManager.delete: failed to delete from WorkerTransaction: " + e);
+			throw new CDException("TransactionManager.delete: failed to delete from EmployeeTransaction: " + e);
 		} // try-catch
 		
 		// If no rows were affected by this query, we know the deletion failed.
-		if (rowCount == 0) throw new CDException("TransactionManager.delete: failed to delete from WorkerTransaction.");
-	} // deleteTransactionCompletedByWorker
+		if (rowCount == 0) throw new CDException("TransactionManager.delete: failed to delete from EmployeeTransaction.");
+	} // deleteTransactionCompletedByEmployee
 	
 	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
-		String deleteSQL = "delete from WorkerTransaction where customerId = ? and transactionId = ?";
+		String deleteSQL = "delete from EmployeeTransaction where customerId = ? and transactionId = ?";
 		PreparedStatement statement = null;
 		int rowCount;
 		
@@ -263,25 +266,25 @@ public class TransactionManager {
 		if (rowCount == 0) throw new CDException("TransactionManager.delete: failed to delete from CustomerTransaction.");		
 	} // deleteTransactionOrderedByCustomer
 	
-	public List<Transaction> restoreTransactionCompletedByWorker(Worker worker) throws CDException {
-		String selectSQL = "select from WorkerTransaction where workerId = ?";
+	public List<Transaction> restoreTransactionCompletedByEmployee(Employee employee) throws CDException {
+		String selectSQL = "select from EmployeeTransaction where employeeId = ?";
 		PreparedStatement statement = null;
 		List<Transaction> transactionList = new ArrayList<Transaction>();
 		long transactionId;
 		
-		if (!worker.isPersistent()) return transactionList; // Return an empty list
+		if (!employee.isPersistent()) return transactionList; // Return an empty list
 		
 		try {
 			statement = (PreparedStatement) con.prepareStatement(selectSQL);
-			statement.setLong(1, worker.getId());
+			statement.setLong(1, employee.getId());
 			statement.execute();
 			ResultSet result = statement.getResultSet();
 			while (result.next()) {
 				transactionId = result.getLong(2);
 				Transaction modelTransaction = objectLayer.createTransaction();
 				modelTransaction.setId(transactionId);
-				List<Transaction> transactionCompletedByWorker = restore(modelTransaction);
-				Transaction transaction = transactionCompletedByWorker.get(0); // there can only be one transaction that matches the model.
+				List<Transaction> transactionCompletedByEmployee = restore(modelTransaction);
+				Transaction transaction = transactionCompletedByEmployee.get(0); // there can only be one transaction that matches the model.
 				transactionList.add(transaction);
 			} // while
 		} catch (SQLException e) {
@@ -289,7 +292,7 @@ public class TransactionManager {
 		} // try-catch
 		
 		return transactionList;
-	} // restoreTransactionCompletedByWorker
+	} // restoreTransactionCompletedByEmployee
 	
 	public List<Transaction> restoreTransactionOrderedByCustomer(Customer customer) throws CDException {
 		String selectSQL = "select from CustomerTransaction where customerId = ?";
@@ -308,8 +311,8 @@ public class TransactionManager {
 				transactionId = result.getLong(2);
 				Transaction modelTransaction = objectLayer.createTransaction();
 				modelTransaction.setId(transactionId);
-				List<Transaction> transactionCompletedByWorker = restore(modelTransaction);
-				Transaction transaction = transactionCompletedByWorker.get(0); // there can only be one transaction that matches the model.
+				List<Transaction> transactionCompletedByEmployee = restore(modelTransaction);
+				Transaction transaction = transactionCompletedByEmployee.get(0); // there can only be one transaction that matches the model.
 				transactionList.add(transaction);
 			} // while
 		} catch (SQLException e) {

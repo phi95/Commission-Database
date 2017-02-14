@@ -5,7 +5,7 @@ import java.util.Date;
 import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.persistence.impl.Persistent;
 
 public class TransactionImpl extends Persistent implements Transaction {
@@ -13,22 +13,22 @@ public class TransactionImpl extends Persistent implements Transaction {
 	private Date date;
 	private String description;
 	private Customer customer;
-	private Worker worker;
+	private Employee employee;
 	private double transactionAmount;
 	
 	public TransactionImpl(){
 		date = null;
 		description = null;
 		customer = null;
-		worker = null;
+		employee = null;
 		transactionAmount = 0;
 	}
 	
-	public TransactionImpl(Customer customer, Worker worker, Date date, String description, double transactionAmount) {
+	public TransactionImpl(Customer customer, Employee worker, Date date, String description, double transactionAmount) {
 		this.date = date;
 		this.description = description;
 		this.customer = customer;
-		this.worker = worker;
+		this.employee = worker;
 		this.transactionAmount = transactionAmount;
 		
 	} // TransactionImpl
@@ -64,13 +64,13 @@ public class TransactionImpl extends Persistent implements Transaction {
 	} // setCustomer
 
 	@Override
-	public void setWorker(Worker worker) {
-		this.worker = worker;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	} // setWorker
 
 	@Override
-	public Worker getWorker() {
-		return worker;
+	public Employee getEmployee() {
+		return employee;
 	} // getWorker
 
 	@Override

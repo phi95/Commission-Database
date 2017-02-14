@@ -5,13 +5,13 @@ import java.util.List;
 
 import cd.CDException;
 import cd.entity.Customer;
-import cd.entity.Manager;
+import cd.entity.Employer;
 import cd.entity.Transaction;
-import cd.entity.Worker;
+import cd.entity.Employee;
 import cd.entity.impl.CustomerImpl;
-import cd.entity.impl.ManagerImpl;
+import cd.entity.impl.EmployerImpl;
 import cd.entity.impl.TransactionImpl;
-import cd.entity.impl.WorkerImpl;
+import cd.entity.impl.EmployeeImpl;
 import cd.object.ObjectLayer;
 import cd.persistence.PersistenceLayer;
 
@@ -60,36 +60,36 @@ public class ObjectLayerImpl implements ObjectLayer {
 	}
 
 	@Override
-	public Manager createManager(String firstName, String lastName, String userName, String password, String email,
+	public Employer createEmployer(String firstName, String lastName, String userName, String password, String email,
 			String phoneNumber) throws CDException {
-		Manager manager = new ManagerImpl(firstName, lastName, userName, password, email, phoneNumber);
-		return manager;
+		Employer employer = new EmployerImpl(firstName, lastName, userName, password, email, phoneNumber);
+		return employer;
 	}
 
 	@Override
-	public Manager createManager() {
-		Manager manager = new ManagerImpl();
-		return manager;
+	public Employer createEmployer() {
+		Employer employer = new EmployerImpl();
+		return employer;
 	}
 
 	@Override
-	public List<Manager> findManager(Manager modelManager) throws CDException {
-		return persistence.restoreManager(modelManager);
+	public List<Employer> findEmployer(Employer modelEmployer) throws CDException {
+		return persistence.restoreEmployer(modelEmployer);
 	}
 
 	@Override
-	public void storeManager(Manager manager) throws CDException {
-		persistence.storeManager(manager);
+	public void storeEmployer(Employer employer) throws CDException {
+		persistence.storeEmployer(employer);
 	}
 
 	@Override
-	public void deleteManager(Manager manager) throws CDException {
-		persistence.deleteManager(manager);
+	public void deleteEmployer(Employer employer) throws CDException {
+		persistence.deleteEmployer(employer);
 	}
 
 	@Override
-	public Transaction createTransaction(Customer customer, Worker worker, Date date, String description, double transactionAmount) throws CDException {
-		Transaction transaction = new TransactionImpl(customer, worker, date, description, transactionAmount);
+	public Transaction createTransaction(Customer customer, Employee employee, Date date, String description, double transactionAmount) throws CDException {
+		Transaction transaction = new TransactionImpl(customer, employee, date, description, transactionAmount);
 		return transaction;
 	}
 
@@ -115,31 +115,31 @@ public class ObjectLayerImpl implements ObjectLayer {
 	}
 
 	@Override
-	public Worker createWorker(String firstName, String lastName, String userName, String password, String email,
+	public Employee createEmployee(String firstName, String lastName, String userName, String password, String email,
 			String phoneNumber) throws CDException {
-		Worker worker = new WorkerImpl(firstName, lastName, userName, password, email, phoneNumber);
-		return worker;
+		Employee employee = new EmployeeImpl(firstName, lastName, userName, password, email, phoneNumber);
+		return employee;
 	}
 
 	@Override
-	public Worker createWorker() {
-		Worker worker = new WorkerImpl();
-		return worker;
+	public Employee createEmployee() {
+		Employee employee = new EmployeeImpl();
+		return employee;
 	}
 
 	@Override
-	public List<Worker> findWorker(Worker modelWorker) throws CDException {
-		return persistence.restoreWorker(modelWorker);
+	public List<Employee> findEmployee(Employee modelEmployee) throws CDException {
+		return persistence.restoreEmployee(modelEmployee);
 	}
 
 	@Override
-	public void storeWorker(Worker worker) throws CDException {
-		persistence.storeWorker(worker);
+	public void storeEmployee(Employee employee) throws CDException {
+		persistence.storeEmployee(employee);
 	}
 
 	@Override
-	public void deleteWorker(Worker worker) throws CDException {
-		persistence.deleteWorker(worker);
+	public void deleteEmployee(Employee employee) throws CDException {
+		persistence.deleteEmployee(employee);
 	}
 
 	@Override
