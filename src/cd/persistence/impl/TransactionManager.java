@@ -201,6 +201,7 @@ public class TransactionManager {
 	
 	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
 		String storeSQL = "insert into CustomerTransaction (customerId, transactionId) values (?, ?)";
+		
 		PreparedStatement statement = null;
 		int rowCount;
 		
@@ -298,7 +299,7 @@ public class TransactionManager {
 		String selectSQL = "select from CustomerTransaction where customerId = ?";
 		PreparedStatement statement = null;
 		List<Transaction> transactionList = new ArrayList<Transaction>();
-		long transactionId;
+		Transaction transaction = objectLayer.createTransaction();
 		
 		if (!customer.isPersistent()) return transactionList; // Return an empty list
 		
@@ -308,11 +309,8 @@ public class TransactionManager {
 			statement.execute();
 			ResultSet result = statement.getResultSet();
 			while (result.next()) {
-				transactionId = result.getLong(2);
-				Transaction modelTransaction = objectLayer.createTransaction();
-				modelTransaction.setId(transactionId);
-				List<Transaction> transactionCompletedByEmployee = restore(modelTransaction);
-				Transaction transaction = transactionCompletedByEmployee.get(0); // there can only be one transaction that matches the model.
+				transaction.setId(result.getLong(2));
+				transaction = objectLayer.findTransaction(transaction).get(0);
 				transactionList.add(transaction);
 			} // while
 		} catch (SQLException e) {

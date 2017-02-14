@@ -245,29 +245,26 @@ public class CustomerManager {
     
     public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException {
 		PreparedStatement statement = null;
-		Customer resultCustomer = null;
+		Customer customer = objectLayer.createCustomer();
 		String selectSQL = "select from CustomerTransaction where transactionId = ?";
 		
 		if (!transaction.isPersistent()) throw new CDException ("CustomerManager.restore: cannot restore a customer from a transaction that is not persistent.");
 		
 		try {
 			statement = (PreparedStatement) conn.prepareStatement(selectSQL);
-			statement.setLong(2, transaction.getId());
+			statement.setLong(1, transaction.getId());
 			statement.execute();
 			ResultSet result = statement.getResultSet();
 			while (result.next()) {
-				long customerId = result.getLong(1);
-				Customer modelCustomer = objectLayer.createCustomer();
-				modelCustomer.setId(customerId);
-				List<Customer> customerOrderingTransaction = objectLayer.getPersistence().restoreCustomer(modelCustomer);
-				resultCustomer = customerOrderingTransaction.get(0);
-				return resultCustomer;
+				customer.setId(result.getLong(1));
+				customer = objectLayer.findCustomer(customer).get(0);
+				return customer;
 			} // while
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new CDException("CustomerManager.restore: Could not restore a customer. Reason: " + e);
 		} // try-catch
 	
-		return resultCustomer;
+		return customer;
 	} // restoreCustomerFromTransaction
 }
