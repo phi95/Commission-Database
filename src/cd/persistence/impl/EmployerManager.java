@@ -115,7 +115,7 @@ public class EmployerManager {
     public List<Employer> restore( Employer modelEmployer ) 
             throws CDException
     {
-        String       selectOfficerSql = "select User.userId, fname, lname, userName, password, email, address, age, Employer.employerId from User, Employer where User.userId = Employer.userId";
+        String       selectOfficerSql = "select User.userId, fname, lname, userName, password, email, phoneNumber, Employer.employerId from User, Employer where User.userId = Employer.userId";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -145,11 +145,6 @@ public class EmployerManager {
                 if( modelEmployer.getPassword() != null ){
                     condition.append( " and " );
                     condition.append( " password = '" + modelEmployer.getPassword() + "'" );
-                }
-
-                if( modelEmployer.getEmailAddress() != null ) {
-                    condition.append( " and " );
-                    condition.append( " email = '" + modelEmployer.getEmailAddress() + "'" );
                 }
 
                 if( modelEmployer.getPhoneNumber() != null ) {
