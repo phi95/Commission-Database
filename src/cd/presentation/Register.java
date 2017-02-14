@@ -70,7 +70,7 @@ public class Register extends HttpServlet {
         	System.out.println("A parameter is null");
         	return;
         }
-	
+        
         try {
         	if(person.equals("employer")){
 	            ssid2 = logicLayer.addEmployer( session, firstName, lastName, username, password, email, phoneNumber );

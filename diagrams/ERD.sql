@@ -5,11 +5,9 @@ CREATE TABLE User (
  userName CHAR(20),
  password CHAR(50),
  email CHAR(20),
- phoneNumber CHAR(15)
+ phoneNumber CHAR(15),
+ PRIMARY KEY(userId)
 );
-
-ALTER TABLE User ADD CONSTRAINT PK_User PRIMARY KEY (userId);
-
 
 CREATE TABLE Employee (
  employeeId INT NOT NULL,
@@ -27,10 +25,10 @@ ALTER TABLE EmployeeTransaction ADD CONSTRAINT PK_EmployeeTransaction PRIMARY KE
 
 CREATE TABLE Customer (
  customerId INT NOT NULL AUTO_INCREMENT,
- userId INT NOT NULL
+ userId INT NOT NULL,
+ PRIMARY KEY(customerId)
 );
 
-ALTER TABLE Customer ADD CONSTRAINT PK_Customer PRIMARY KEY (customerId);
 
 CREATE TABLE CustomerTransaction (
  customerId INT NOT NULL,
@@ -41,11 +39,9 @@ ALTER TABLE CustomerTransaction ADD CONSTRAINT PK_CustomerTransaction PRIMARY KE
 
 CREATE TABLE Employer (
  employerId INT NOT NULL AUTO_INCREMENT,
- userId INT NOT NULL
+ userId INT NOT NULL,
+ PRIMARY KEY(employerId)
 );
-
-ALTER TABLE Employer ADD CONSTRAINT PK_Employer PRIMARY KEY (employerId);
-
 
 CREATE TABLE EmployerEmployee (
  employerId INT NOT NULL,
@@ -58,10 +54,8 @@ ALTER TABLE EmployerEmployee ADD CONSTRAINT PK_EmployerEmployee PRIMARY KEY (emp
 CREATE TABLE Transaction (
  transactionId INT NOT NULL AUTO_INCREMENT,
  date DATE NOT NULL,
+ PRIMARY KEY(transactionId)
 );
-
-ALTER TABLE Transaction ADD CONSTRAINT PK_Transaction PRIMARY KEY (transactionId);
-
 
 ALTER TABLE Employee ADD CONSTRAINT FK_Employee_0 FOREIGN KEY (userId) REFERENCES User (userId) ON DELETE CASCADE;
 
@@ -78,7 +72,3 @@ ALTER TABLE Employer ADD CONSTRAINT FK_Employer_0 FOREIGN KEY (userId) REFERENCE
 
 ALTER TABLE EmployerEmployee ADD CONSTRAINT FK_EmployerEmployee_0 FOREIGN KEY (employerId) REFERENCES Employer (employerId) ON DELETE CASCADE;
 ALTER TABLE EmployerEmployee ADD CONSTRAINT FK_EmployerEmployee_1 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId) ON DELETE CASCADE;
-
-
-ALTER TABLE Transaction ADD CONSTRAINT FK_Transaction_0 FOREIGN KEY (employeeId) REFERENCES Employee (employeeId) ON DELETE CASCADE;
-ALTER TABLE Transaction ADD CONSTRAINT FK_Transaction_1 FOREIGN KEY (customerId) REFERENCES Customer (customerId) ON DELETE CASCADE;

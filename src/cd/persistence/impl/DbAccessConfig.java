@@ -11,7 +11,7 @@ public abstract class DbAccessConfig
     
     /** The database name
      */
-    static final String DB_NAME = "eVote";
+    static final String DB_NAME = "Commission-Database";
     
     /** The database server name for the connection pool
      */
@@ -19,7 +19,7 @@ public abstract class DbAccessConfig
 
     /** The JDBC connection string/URL.
      */
-    static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/commission-database";
+    static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/Commission-Database";
 
     /** The database user name.
      */

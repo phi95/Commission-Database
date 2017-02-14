@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+    pageEncoding="UTF-8" import="java.sql.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,11 +52,11 @@
                   <input type="text" name="username" class="form-control" placeholder="UserName" required autofocus>
                   <label for="password" class="sr-only">Password</label>
                   <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <div class="modal-footer">
+                  	<button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+                  </div>
                 </form>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-lg btn-primary" type="submit">Sign in</button>
-                  <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                </div>
               </div>
 
               <div class="tab-pane" id="registerEmployer">
@@ -76,12 +78,11 @@
                     <input type="number" name="phoneNumber" class="form-control" placeholder="Phone Number" required>
                     <input type = "hidden" name = "person" value = "employer">
                   </fieldset>
-
+				  <div class="modal-footer">
+                  	<button class="btn btn-lg btn-primary" type="submit">Register</button>
+                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+                  </div>
                 </form>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-lg btn-primary" type="submit">Register</button>
-                  <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                </div>
               </div>
           </div>
 
@@ -113,11 +114,11 @@
                   <input type="text" name="username" class="form-control" placeholder="UserName" required autofocus>
                   <label for="password" class="sr-only">Password</label>
                   <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <div class="modal-footer">
+                  	<button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+                  </div>                
                 </form>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-lg btn-primary" type="submit">Sign in</button>
-                  <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                </div>
               </div>
 
               <div class="tab-pane" id="registerEmployee">
@@ -139,12 +140,11 @@
                     <input type="number" name="phoneNumber" class="form-control" placeholder="Phone Number" required>
                     <input type = "hidden" name = "person" value = "employee">
                   </fieldset>
-
+                  <div class="modal-footer">
+                  	<button class="btn btn-lg btn-primary" type="submit">Register</button>
+                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+                  </div>
                 </form>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-lg btn-primary" type="submit">Register</button>
-                  <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                </div>
               </div>
           </div>
         </div>
