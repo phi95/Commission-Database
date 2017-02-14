@@ -12,12 +12,11 @@ import cd.logic.LogicLayer;
 import cd.session.Session;
 import cd.session.SessionManager;
 
-
 /**
- * Servlet implementation class EmployerLogin
+ * Servlet implementation class Register
  */
-@WebServlet("/EmployerLogin")
-public class EmployerLogin extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,13 +25,18 @@ public class EmployerLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		HttpSession httpSession = null;
+    	String firstName;
+    	String lastName;
     	String username;
     	String password;
+    	String email;
+    	String phoneNumber;
+    	String person;
    		String ssid = null;
    		String ssid2 = null;
    		Session session = null;
    		LogicLayer logicLayer = null;
-    		
+   		
     	httpSession = request.getSession();
     	ssid = (String)httpSession.getAttribute("ssid");
         if( ssid != null ) {
@@ -53,31 +57,41 @@ public class EmployerLogin extends HttpServlet {
         }
             
         logicLayer = session.getLogicLayer();
-            
-        username = request.getParameter( "username" );
-        password = request.getParameter( "password" );
-            
-        if( username == null || password == null ) {
-        	System.out.println("Username or password null");
+    	
+    	firstName = request.getParameter("fname");
+    	lastName = request.getParameter("lname");
+    	username = request.getParameter("username");
+    	password = request.getParameter("password");
+    	email = request.getParameter("email");
+    	phoneNumber = request.getParameter("phoneNumber");
+    	person = request.getParameter("person");
+
+        if( firstName == null || lastName == null || username == null || password == null || email == null || phoneNumber == null) {
+        	System.out.println("A parameter is null");
         	return;
         }
-            
-        try {          
-            ssid2 = logicLayer.employerLogin( session, username, password );
-            System.out.println( "Obtained ssid: " + ssid2 );
-            httpSession.setAttribute( "ssid", ssid2 );
-            System.out.println( "Connection: " + session.getConnection() );
+	
+        try {
+        	if(person.equals("employer")){
+	            ssid2 = logicLayer.addEmployer( session, firstName, lastName, username, password, email, phoneNumber );
+	            System.out.println( "Obtained ssid: " + ssid );
+	            httpSession.setAttribute( "ssid", ssid );
+	            System.out.println( "Connection: " + session.getConnection());
+        	}else if(person.equals("employee")){
+                ssid2 = logicLayer.addEmployee( session, firstName, lastName, username, password, email, phoneNumber );
+                System.out.println( "Obtained ssid: " + ssid );
+                httpSession.setAttribute( "ssid", ssid );
+                System.out.println( "Connection: " + session.getConnection());
+        	}
         } 
         catch ( Exception e ) {
         	e.printStackTrace();
         }
-                
-        if (ssid2!=null){
-        	response.sendRedirect("employerHomepage.jsp");
-        }else
-    	{
-    		response.sendRedirect("invalidLogin.jsp");
-    	}	
+        
+        if(ssid2 != null)
+        	response.sendRedirect("index.jsp");
+        else
+        	response.sendRedirect("thankyou.jsp");
 	}
 	
 

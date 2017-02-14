@@ -3,15 +3,15 @@ package cd.logic.impl;
 import java.util.List;
 
 import cd.CDException;
-import cd.entity.Employer;
+import cd.entity.Employee;
 import cd.object.ObjectLayer;
 import cd.session.Session;
 import cd.session.SessionManager;
 
-public class EmployerLoginCtrl {
+public class EmployeeLoginCtrl {
 	private ObjectLayer objectLayer = null;
 	
-	public EmployerLoginCtrl(ObjectLayer objectLayer){
+	public EmployeeLoginCtrl(ObjectLayer objectLayer){
 		this.objectLayer = objectLayer;
 	}
 	
@@ -20,13 +20,13 @@ public class EmployerLoginCtrl {
 		{
 			String ssid = null;
 			
-			Employer modelEmployer = objectLayer.createEmployer();
-			modelEmployer.setUserName(userName);
-			modelEmployer.setPassword(password);
-			List<Employer> employers = objectLayer.findEmployer(modelEmployer);
-			if(employers.size() > 0){
-				Employer employer = employers.get(0);
-				session.setUser(employer);
+			Employee modelEmployee = objectLayer.createEmployee();
+			modelEmployee.setUserName(userName);
+			modelEmployee.setPassword(password);
+			List<Employee> employees = objectLayer.findEmployee(modelEmployee);
+			if(employees.size() > 0){
+				Employee employee = employees.get(0);
+				session.setUser(employee);
 				ssid = SessionManager.storeSession(session);
 			}else
 				throw new CDException("SessionManager.login: Invalid UserName or Password");

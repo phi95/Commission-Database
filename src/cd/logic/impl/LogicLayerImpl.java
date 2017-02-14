@@ -30,4 +30,24 @@ public class LogicLayerImpl implements LogicLayer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String employeeLogin(Session session, String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addEmployer(Session session, String firstName, String lastName, String username, String password,
+			String email, String phoneNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
+			String email, String phoneNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
