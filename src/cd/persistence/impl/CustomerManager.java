@@ -12,6 +12,7 @@ import com.mysql.jdbc.PreparedStatement;
 import cd.CDException;
 import cd.entity.Customer;
 import cd.entity.Transaction;
+import cd.entity.Worker;
 import cd.object.ObjectLayer;
 
 public class CustomerManager {
@@ -243,7 +244,30 @@ public class CustomerManager {
     }
     
     public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		PreparedStatement statement = null;
+		Customer resultCustomer = null;
+		String selectSQL = "select from CustomerTransaction where transactionId = ?";
+		
+		if (!transaction.isPersistent()) throw new CDException ("CustomerManager.restore: cannot restore a customer from a transaction that is not persistent.");
+		
+		try {
+			statement = (PreparedStatement) conn.prepareStatement(selectSQL);
+			statement.setLong(2, transaction.getId());
+			statement.execute();
+			ResultSet result = statement.getResultSet();
+			while (result.next()) {
+				long customerId = result.getLong(1);
+				Customer modelCustomer = objectLayer.createCustomer();
+				modelCustomer.setId(customerId);
+				List<Customer> customerOrderingTransaction = objectLayer.getPersistence().restoreCustomer(modelCustomer);
+				resultCustomer = customerOrderingTransaction.get(0);
+				return resultCustomer;
+			} // while
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CDException("CustomerManager.restore: Could not restore a customer. Reason: " + e);
+		} // try-catch
+	
+		return resultCustomer;
+	} // restoreCustomerFromTransaction
 }
