@@ -12,13 +12,13 @@ import cd.logic.LogicLayer;
 import cd.session.Session;
 import cd.session.SessionManager;
 
-
 /**
- * Servlet implementation class EmployerLogin
+ * Servlet implementation class EmployeeLogin
  */
-@WebServlet("/EmployerLogin")
-public class EmployerLogin extends HttpServlet {
+@WebServlet("/EmployeeLogin")
+public class EmployeeLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -63,7 +63,7 @@ public class EmployerLogin extends HttpServlet {
         }
             
         try {          
-            ssid2 = logicLayer.employerLogin( session, username, password );
+            ssid2 = logicLayer.employeeLogin( session, username, password );
             System.out.println( "Obtained ssid: " + ssid2 );
             httpSession.setAttribute( "ssid", ssid2 );
             System.out.println( "Connection: " + session.getConnection() );
@@ -77,9 +77,8 @@ public class EmployerLogin extends HttpServlet {
         }else
     	{
     		response.sendRedirect("invalidLogin.jsp");
-    	}	
-	}
-	
+    	}
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
