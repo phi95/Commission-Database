@@ -1,6 +1,7 @@
 package cd.logic;
 
 import cd.CDException;
+import cd.entity.User;
 import cd.session.Session;
 
 public interface LogicLayer {
@@ -30,5 +31,11 @@ public interface LogicLayer {
 	 */
 	String addEmployee(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber);
+
+	User updateEmployerAccount(String firstName, String lastName, String username, String password, String email,
+			String phoneNumber);
+
+	User updateEmployeeAccount(String firstName, String lastName, String username, String password, String email,
+			String phoneNumber);
 
 }
