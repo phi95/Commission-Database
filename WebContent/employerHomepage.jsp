@@ -76,7 +76,7 @@
           <li><a href="#Today">Today</a></li>
           <li><a href="#Month">Month</a></li>
           <li><a href="#Year">Year</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
+          <li style="float: right;"><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
         </ul>
       </div>
     </div>

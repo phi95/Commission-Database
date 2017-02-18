@@ -76,7 +76,8 @@
           <li><a href="#Today">Today</a></li>
           <li><a href="#Month">Month</a></li>
           <li><a href="#Year">Year</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
+          <li style="float: right;"><a href=#addTransaction><span class="glyphicon glyphicon-envelope"></span></a></li>
+          <li style="float: right;"><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
         </ul>
       </div>
     </div>
@@ -249,6 +250,33 @@
           
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="addTransaction" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+      	<div class="modal-content">
+        	<div class="modal-header">
+          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+          		<h1 class="modal-title text-center">Account Information</h1>
+        	</div>
+  			
+  			<div class="modal-body">
+			  	<form class="form-signin" method = "post" action = "AddTransaction">
+			      <fieldset>
+			        <label for="amount" class="sr-only">Amount</label>
+			        <input type="number" name="amount" class="form-control" placeholder="Amount" required autofocus>
+			        <label for="description" class="sr-only">Description</label>
+			        <input type="text" name="description" class="form-control" placeholder="Description" required>
+			        
+			      </fieldset>
+				  <div class="modal-footer">
+			      	<button class="btn btn-lg btn-primary" type="submit">Add</button>
+			      	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+			      </div>
+			    </form>
+		    </div>
+    	</div>
     </div>
   </div>
 
