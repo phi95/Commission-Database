@@ -68,7 +68,6 @@ public class LogicLayerImpl implements LogicLayer {
 	@Override
 	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber) {
-<<<<<<< HEAD
 		String ssd = null;
 		EmployeeRegistrationCtrl verifyEmployee = new EmployeeRegistrationCtrl(objectLayer);
 		try {
@@ -79,10 +78,6 @@ public class LogicLayerImpl implements LogicLayer {
 		} // try-catch
 		return ssd;
 	} // addEmployee
-=======
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public User updateEmployerAccount(String firstName, String lastName, String username, String password, String email,
@@ -97,5 +92,4 @@ public class LogicLayerImpl implements LogicLayer {
 		// TODO Auto-generated method stub
 		return null;
 	}
->>>>>>> master
 }
