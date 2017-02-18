@@ -3,7 +3,6 @@ package cd.object;
 import java.util.Date;
 import java.util.List;
 import cd.CDException;
-import cd.entity.Customer;
 import cd.entity.Employer;
 import cd.entity.Transaction;
 import cd.entity.Employee;
@@ -11,47 +10,6 @@ import cd.persistence.PersistenceLayer;
 import cd.CDException;
 
 public interface ObjectLayer {
-	
-	/**
-	 * Creates a new customer object with the given attributes.
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param userName the username (note: should be null)
-	 * @param password the password (note: should be null)
-	 * @param email the customer's email address.
-	 * @param phoneNumbers the customer's phone number.
-	 * @return A new customer object with the given attributes.
-	 * @throws CDException
-	 */
-	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email, String phoneNumber) throws CDException;
-	
-	/**
-	 * Creates a customer object with undefined attributes.
-	 * @return A customer object.
-	 */
-	public Customer createCustomer();
-	
-	/**
-	 * Creates a list of Customer objects that satisfy the search criteria.
-	 * @param modelCustomer the customer object that specifies the search criteria.
-	 * @return A list of customers that match the criteria(s).
-	 * @throws CDException may happen if there is a problem retrieving the requested object(s).
-	 */
-	public List<Customer> findCustomer(Customer modelCustomer) throws CDException;
-	
-	/**
-	 * Stores the given customer in persistent data storage.
-	 * @param customer The object to be stored.
-	 * @throws CDException may happen if there is a problem with storing the object.
-	 */
-	public void storeCustomer(Customer customer) throws CDException;
-	
-	/**
-     * Delete this Customer object.
-     * @param customer the object to be deleted.
-     * @throws CDException in case there is a problem with the deletion of the object
-     */
-    public void deleteCustomer( Customer customer ) throws CDException;
 
 	/**
 	 * Creates a new employer object with the given attributes.
@@ -104,7 +62,7 @@ public interface ObjectLayer {
 	 * @return A Transaction object.
 	 * @throws CDException
 	 */
-	public Transaction createTransaction(Customer customer, Employee employee, Date date, String description, double transactionAmount) throws CDException; 
+	public Transaction createTransaction(Employee employee, Date date, String description, double transactionAmount) throws CDException; 
 	
 	/**
 	 * Creates a Transaction object with undefined attributes.

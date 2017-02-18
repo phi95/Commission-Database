@@ -28,18 +28,6 @@ public interface Transaction extends Persistable {
 	 * @param description set new description for transaction
 	 */
 	public void setDescription(String description);
-	
-	/**
-	 * Returns the customer this transaction is associated with.
-	 * @return the transaction's customer
-	 */
-	public Customer getCustomer();
-	
-	/**
-	 * Set transaction's customer.
-	 * @param customer set the customer this transaction is associated with
-	 */
-	public void setCustomer(Customer customer);
 		
 	/**
 	 * Returns the employee this transaction is associated with.

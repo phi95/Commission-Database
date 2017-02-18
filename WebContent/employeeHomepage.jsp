@@ -5,6 +5,8 @@
 <%@ page import="cd.logic.LogicLayer" %>
 <%@ page import="java.util.List" %>
 <%@ page import="cd.entity.*" %>
+<%@ page import="java.util.Date" %>
+
 
  <%
 	String ssid = (String)session.getAttribute("ssid");
@@ -91,7 +93,6 @@
       <thead>
         <tr>
           <th>Number</th>
-          <th>Customer</th>
           <th>Amount</th>
           <th>Description</th>
         </tr>
@@ -99,7 +100,6 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>Dustin</td>
           <td>$100</td>
           <td>some good stuff</td>
         </tr>

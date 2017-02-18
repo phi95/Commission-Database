@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import cd.CDException;
-import cd.entity.Customer;
 import cd.entity.Employer;
 import cd.entity.Transaction;
 import cd.entity.Employee;
-import cd.entity.impl.CustomerImpl;
 import cd.entity.impl.EmployerImpl;
 import cd.entity.impl.TransactionImpl;
 import cd.entity.impl.EmployeeImpl;
@@ -30,34 +28,6 @@ public class ObjectLayerImpl implements ObjectLayer {
         this.persistence = persistence;
         System.out.println( "ObjectLayerImpl.ObjectLayerImpl(persistence): initialized" );
     }
-	
-	@Override
-	public Customer createCustomer(String firstName, String lastName, String userName, String password, String email,
-			String phoneNumber) throws CDException {
-		Customer customer = new CustomerImpl(firstName, lastName, userName, password, email, phoneNumber);
-		return customer;
-	}
-
-	@Override
-	public Customer createCustomer() {
-		Customer customer = new CustomerImpl();
-		return customer;
-	}
-
-	@Override
-	public List<Customer> findCustomer(Customer modelCustomer) throws CDException {
-		return persistence.restoreCustomer(modelCustomer);
-	}
-
-	@Override
-	public void storeCustomer(Customer customer) throws CDException {
-		persistence.storeCustomer(customer);
-	}
-
-	@Override
-	public void deleteCustomer(Customer customer) throws CDException {
-		persistence.deleteCustomer(customer);
-	}
 
 	@Override
 	public Employer createEmployer(String firstName, String lastName, String userName, String password, String email,
@@ -88,8 +58,8 @@ public class ObjectLayerImpl implements ObjectLayer {
 	}
 
 	@Override
-	public Transaction createTransaction(Customer customer, Employee employee, Date date, String description, double transactionAmount) throws CDException {
-		Transaction transaction = new TransactionImpl(customer, employee, date, description, transactionAmount);
+	public Transaction createTransaction(Employee employee, Date date, String description, double transactionAmount) throws CDException {
+		Transaction transaction = new TransactionImpl(employee, date, description, transactionAmount);
 		return transaction;
 	}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import java.sql.Connection;
 
 import cd.CDException;
-import cd.entity.Customer;
 import cd.entity.Employer;
 import cd.entity.Transaction;
 import cd.entity.Employee;
@@ -14,33 +13,16 @@ import cd.persistence.PersistenceLayer;
 
 public class PersistenceLayerImpl implements PersistenceLayer {
 
-	private CustomerManager customerManager = null;
 	private EmployerManager employerManager = null;
 	private TransactionManager transactionManager = null;
 	private EmployeeManager employeeManager = null;
 	
 	public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer){
-		customerManager = new CustomerManager(conn, objectLayer);
 		employerManager = new EmployerManager(conn, objectLayer);
 		transactionManager = new TransactionManager(conn, objectLayer);
 		employeeManager = new EmployeeManager(conn, objectLayer);
 	}
 	
-	@Override
-	public List<Customer> restoreCustomer(Customer modelCustomer) throws CDException {
-		return customerManager.restore(modelCustomer);
-	}
-
-	@Override
-	public void storeCustomer(Customer customer) throws CDException {
-		customerManager.store(customer);
-	}
-
-	@Override
-	public void deleteCustomer(Customer customer) throws CDException {
-		customerManager.delete(customer);
-	}
-
 	@Override
 	public List<Employer> restoreEmployer(Employer modelEmployer) throws CDException {
 		return employerManager.restore(modelEmployer);
@@ -97,12 +79,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	}
 
 	@Override
-	public void storeTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
-		transactionManager.storeTransactionOrderedByCustomer(transaction, customer);
-		
-	}
-
-	@Override
 	public void deleteEmployeeEmployedByEmployer(Employee employee, Employer employer) throws CDException {
 		employeeManager.deleteEmployeeEmployedByEmployer(employee, employer);
 	}
@@ -110,11 +86,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public void deleteTransactionCompletedByEmployee(Transaction transaction, Employee employee) throws CDException {
 		transactionManager.deleteTransactionCompletedByEmployee(transaction, employee);
-	}
-
-	@Override
-	public void deleteTransactionOrderedByCustomer(Transaction transaction, Customer customer) throws CDException {
-		transactionManager.deleteTransactionOrderedByCustomer(transaction, customer);
 	}
 
 	@Override
@@ -130,16 +101,6 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public List<Transaction> restoreTransactionCompletedByEmployee(Employee employee) throws CDException {
 		return transactionManager.restoreTransactionCompletedByEmployee(employee);
-	}
-
-	@Override
-	public List<Transaction> restoreTransactionOrderedByCustomer(Customer customer) throws CDException {
-		return transactionManager.restoreTransactionOrderedByCustomer(customer);
-	}
-
-	@Override
-	public Customer restoreCustomerFromTransaction(Transaction transaction) throws CDException {
-		return customerManager.restoreCustomerFromTransaction(transaction);
 	}
 
 	@Override
