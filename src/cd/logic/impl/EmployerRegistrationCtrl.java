@@ -3,7 +3,6 @@ package cd.logic.impl;
 import java.util.List;
 
 import cd.CDException;
-import cd.entity.Employee;
 import cd.entity.Employer;
 import cd.object.ObjectLayer;
 import cd.session.Session;

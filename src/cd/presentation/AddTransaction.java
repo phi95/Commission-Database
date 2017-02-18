@@ -13,10 +13,10 @@ import cd.session.Session;
 import cd.session.SessionManager;
 
 /**
- * Servlet implementation class EmployerUpdate
+ * Servlet implementation class AddTransaction
  */
-@WebServlet("/UpdateAccount")
-public class UpdateAccount extends HttpServlet {
+@WebServlet("/AddTransaction")
+public class AddTransaction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,13 +26,9 @@ public class UpdateAccount extends HttpServlet {
 		response.setContentType("text/html");
     	
     	HttpSession httpSession = null;
-    	String firstName;
-    	String lastName;
-    	String username;
-    	String password;
-    	String email;
-    	String phoneNumber;
-    	String person;
+    	String amount;
+    	String description;
+    	
    		String ssid = null;
    		Session session = null;
    		LogicLayer logicLayer = null;
@@ -59,27 +55,18 @@ public class UpdateAccount extends HttpServlet {
             
         logicLayer = session.getLogicLayer();
         
-    	firstName = request.getParameter("fname");
-    	lastName = request.getParameter("lname");
-    	username = request.getParameter("username");
-    	password = request.getParameter("password");
-    	email = request.getParameter("email");
-    	phoneNumber = request.getParameter("phoneNumber");
-    	person = request.getParameter("person");
+    	amount = request.getParameter("amount");
+    	description = request.getParameter("descritpion");
     	
     	try {
-    		if(person.equals("employer")){
-    			session.setUser(logicLayer.updateEmployerAccount(firstName, lastName, username, password, email, phoneNumber));
-    			response.sendRedirect("employerHomepage.jsp");
-    		}else if(person.equals("employee")){
-    			session.setUser(logicLayer.updateEmployeeAccount(firstName, lastName, username, password, email, phoneNumber));
-    			response.sendRedirect("employeeHomepage.jsp");
-    		}
+			logicLayer.addTransaction(amount, description);
+			response.sendRedirect("employeeHomepage.jsp");	
     	} 
     	catch ( Exception e ) {
     		e.printStackTrace();
     	}
         
+		
 	}
 
 	/**

@@ -1,14 +1,13 @@
 package cd.logic.impl;
 
-
-
-import java.sql.Connection;
 import java.util.List;
 
 import cd.CDException;
-import cd.object.*;
-import cd.session.*;
-import cd.entity.*;
+import cd.entity.Employee;
+import cd.object.ObjectLayer;
+import cd.session.Session;
+import cd.session.SessionManager;
+
 
 
 public class EmployeeRegistrationCtrl {

@@ -27,69 +27,57 @@ public class LogicLayerImpl implements LogicLayer {
     }
 
 	@Override
-	public String employerLogin(Session session, String username, String password) {
+	public String employerLogin(Session session, String username, String password) throws CDException {
 		EmployerLoginCtrl ctrlVerifyEmployer = new EmployerLoginCtrl(objectLayer);
 		String ssid = null;
-		try {
-			ssid = ctrlVerifyEmployer.login(session, username, password);
-		} catch (CDException e) {
-			e.printStackTrace();
-		} // try-catch
-		
+		ssid = ctrlVerifyEmployer.login(session, username, password);	
 		return ssid;
 	} // employerLogin
 
 	@Override
-	public String employeeLogin(Session session, String username, String password) {
+	public String employeeLogin(Session session, String username, String password) throws CDException {
 		EmployeeLoginCtrl verifyEmployee = new EmployeeLoginCtrl(objectLayer);
 		String ssid = null;
-		try {
-			ssid = verifyEmployee.login(session, username, password);
-		} catch (CDException e) {
-			e.printStackTrace();
-		} // try-catch
+		ssid = verifyEmployee.login(session, username, password);
 		return ssid;
 	} // employeeLogin
 
 	@Override
 	public String addEmployer(Session session, String firstName, String lastName, String username, String password,
-			String email, String phoneNumber) {
-		String ssd = null;
+			String email, String phoneNumber) throws CDException {
+		String ssid = null;
 		EmployerRegistrationCtrl verifyEmployer = new EmployerRegistrationCtrl(objectLayer);
-		try {
-			ssd = verifyEmployer.addEmployer(session, firstName, lastName, username, password, email, phoneNumber);
-		} catch (CDException e) {
-			e.printStackTrace();
-			System.out.println("LogicLayerImpl.add: Failed to verify employer.");
-		} // try-catch
-		return ssd;
+		ssid = verifyEmployer.addEmployer(session, firstName, lastName, username, password, email, phoneNumber);
+
+		return ssid;
 	} // addEmployer
 
 	@Override
 	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
-			String email, String phoneNumber) {
-		String ssd = null;
+			String email, String phoneNumber) throws CDException {
+		String ssid = null;
 		EmployeeRegistrationCtrl verifyEmployee = new EmployeeRegistrationCtrl(objectLayer);
-		try {
-			ssd = verifyEmployee.addEmployee(session, firstName, lastName, username, password, email, phoneNumber);
-		} catch (CDException e) {
-			e.printStackTrace();
-			System.out.println("LogicLayerImpl.add: Failed to verify employee.");
-		} // try-catch
-		return ssd;
+		ssid = verifyEmployee.addEmployee(session, firstName, lastName, username, password, email, phoneNumber);
+		return ssid;
 	} // addEmployee
 
 	@Override
 	public User updateEmployerAccount(String firstName, String lastName, String username, String password, String email,
 			String phoneNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		EmployerUpdateCtrl employerUpdateCtrl = new EmployerUpdateCtrl(objectLayer);
+		return employerUpdateCtrl.updateEmployer(firstName, lastName, username, password, email, phoneNumber);
 	}
 
 	@Override
 	public User updateEmployeeAccount(String firstName, String lastName, String username, String password, String email,
 			String phoneNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		EmployeeUpdateCtrl employeeUpdateCtrl = new EmployeeUpdateCtrl(objectLayer);
+		return employeeUpdateCtrl.updateEmployee(firstName, lastName, username, password, email, phoneNumber);
+	}
+
+	@Override
+	public void addTransaction(String amount, String description) throws CDException {
+		TransactionCtrl transactionCtrl = new TransactionCtrl(objectLayer);
+		transactionCtrl.addTransaction(amount, description);
 	}
 }
