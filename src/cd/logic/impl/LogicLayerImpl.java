@@ -53,14 +53,28 @@ public class LogicLayerImpl implements LogicLayer {
 	@Override
 	public String addEmployer(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber) {
-		
-		return null;
-	} 
+		String ssd = null;
+		EmployerRegistrationCtrl verifyEmployer = new EmployerRegistrationCtrl(objectLayer);
+		try {
+			ssd = verifyEmployer.addEmployer(session, firstName, lastName, username, password, email, phoneNumber);
+		} catch (CDException e) {
+			e.printStackTrace();
+			System.out.println("LogicLayerImpl.add: Failed to verify employer.");
+		} // try-catch
+		return ssd;
+	} // addEmployer
 
 	@Override
 	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String ssd = null;
+		EmployeeRegistrationCtrl verifyEmployee = new EmployeeRegistrationCtrl(objectLayer);
+		try {
+			ssd = verifyEmployee.addEmployee(session, firstName, lastName, username, password, email, phoneNumber);
+		} catch (CDException e) {
+			e.printStackTrace();
+			System.out.println("LogicLayerImpl.add: Failed to verify employee.");
+		} // try-catch
+		return ssd;
+	} // addEmployee
 }
