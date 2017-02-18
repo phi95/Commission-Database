@@ -3,6 +3,7 @@ package cd.logic.impl;
 import java.sql.Connection;
 
 import cd.CDException;
+import cd.entity.User;
 import cd.logic.LogicLayer;
 import cd.object.ObjectLayer;
 import cd.object.impl.ObjectLayerImpl;
@@ -67,6 +68,7 @@ public class LogicLayerImpl implements LogicLayer {
 	@Override
 	public String addEmployee(Session session, String firstName, String lastName, String username, String password,
 			String email, String phoneNumber) {
+<<<<<<< HEAD
 		String ssd = null;
 		EmployeeRegistrationCtrl verifyEmployee = new EmployeeRegistrationCtrl(objectLayer);
 		try {
@@ -77,4 +79,23 @@ public class LogicLayerImpl implements LogicLayer {
 		} // try-catch
 		return ssd;
 	} // addEmployee
+=======
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateEmployerAccount(String firstName, String lastName, String username, String password, String email,
+			String phoneNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateEmployeeAccount(String firstName, String lastName, String username, String password, String email,
+			String phoneNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> master
 }
