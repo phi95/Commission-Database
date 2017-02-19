@@ -93,13 +93,16 @@ public class LogicLayerImpl implements LogicLayer {
 
 	@Override
 	public List<Employee> getEmployeesFromEmployer(Employer employer) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		EmployeeCtrl employeeCtrl = new EmployeeCtrl(objectLayer);
+		return employeeCtrl.getEmployeesFromEmployer(employer);
+	} // getEmployeesFromEmployer
 
 	@Override
 	public double totalTransactions(List<Transaction> transactions) throws CDException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		double total = 0.0;
+		for (int i = 0; i < transactions.size(); i++) {
+			total += transactions.get(i).getTransactionAmount();
+		} // for
+		return total;
+	} // totalTransactions
 }

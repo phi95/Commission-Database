@@ -25,14 +25,12 @@ private ObjectLayer objectLayer = null;
 	
 	public List<Transaction> getTransactionFromEmployee(Employee employee) {
 		List<Transaction> transactions = null;
-		
 		try {
 			transactions = objectLayer.getPersistence().restoreTransactionCompletedByEmployee(employee);
 		} catch (CDException e) {
 			e.printStackTrace();
 		} // try-catch
-		
 		return transactions;
-		
 	} // getTransactionFromEmployee
+	
 }
