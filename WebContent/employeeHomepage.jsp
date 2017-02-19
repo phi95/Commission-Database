@@ -104,9 +104,9 @@
 	      for(int i =1; i<= transactions.size(); i++){
 	    	  %>
 	    	  
-		   	  	<td><%=i %></td>
-		   	  	<td><%=transactions.get(i-1).getTransactionAmount() %></td>
-		   	  	<td><%=transactions.get(i-1).getDescription() %></td>
+		   	  	<td><%= i %></td>
+		   	  	<td><%= transactions.get(i-1).getTransactionAmount() %></td>
+		   	  	<td><%= transactions.get(i-1).getDescription() %></td>
 	      <%} %>
 
 		</tr>

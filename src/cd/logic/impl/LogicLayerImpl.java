@@ -5,6 +5,7 @@ import java.util.List;
 
 import cd.CDException;
 import cd.entity.Employee;
+import cd.entity.Employer;
 import cd.entity.Transaction;
 import cd.entity.User;
 import cd.logic.LogicLayer;
@@ -89,4 +90,16 @@ public class LogicLayerImpl implements LogicLayer {
 		TransactionCtrl transactionCtrl = new TransactionCtrl(objectLayer);
 		return transactionCtrl.getTransactionFromEmployee(employee);
 	} // getTransactionFromEmployee
+
+	@Override
+	public List<Employee> getEmployeesFromEmployer(Employer employer) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double totalTransactions(List<Transaction> transactions) throws CDException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
