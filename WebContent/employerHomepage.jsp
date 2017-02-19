@@ -76,6 +76,7 @@
           <li><a href="#Today">Today</a></li>
           <li><a href="#">Month</a></li>
           <li><a href="#">Year</a></li>
+          <li style="float: right;"><a href="#" data-toggle="modal" data-target="#RegisterEmployee">Add Employee</a></li>      
           <li style="float: right;"><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
         </ul>
       </div>
@@ -95,11 +96,53 @@
       </thead>
       <tbody>
         <tr>
-          <td>Dustin</td>
-          <td>$100</td>
+        <%
+        List<Employee> employees = logicLayer.getEmployeesFromEmployer((Employer)hpSession.getUser());
+        for(int i=0; i< employees.size(); i++){
+        %>
+          <td><%=employees.get(i).getFirstName() + " " + employees.get(i).getLastName() %></td>
+          <td><%=logicLayer.totalTransactions(logicLayer.getTransactionsFromEmployee(employees.get(i))) %></td>
+        <%} %>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div id="EmployeeRegister" class="modal fade" role="dialog">
+  	<div class="modal-dialog">
+  		<div class="modal-content">
+  			<div class="modal-header">
+  			    <button type="button" class="close" data-dismiss="modal">&times;</button>
+          		<h1 class="modal-title text-center">Add Employee</h1>
+  			</div>
+  			
+  			<div class="modal-body">
+                <form class="form-signin" method = "post" action = "Register">
+                  <fieldset>
+                    <label for="fname" class="sr-only">First Name</label>
+                    <input type="text" name="fname" class="form-control" placeholder="First Name" required autofocus>
+                    <label for="lname" class="sr-only">Last Name</label>
+                    <input type="text" name="lname" class="form-control" placeholder="Last Name" required>
+                    <label for="username" class="sr-only">UserName</label>
+                    <input type="text" name="username" class="form-control" placeholder="UserName" required>
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <label for="passwordRetype" class="sr-only">Retype Password</label>
+                    <input type="password" name="passwordRetype" class="form-control" placeholder="Retype Password" required>
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <label for="phoneNumber" class="sr-only">Phone Number</label>
+                    <input type="number" name="phoneNumber" class="form-control" placeholder="Phone Number" required>
+                    <input type = "hidden" name = "person" value = "employee">
+                  </fieldset>
+                  <div class="modal-footer">
+                  	<button class="btn btn-lg btn-primary" type="submit">Register</button>
+                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+  			</div>
+  		</div>
+  	</div>
   </div>
 
   <div id="accountModal" class="modal fade" role="dialog">

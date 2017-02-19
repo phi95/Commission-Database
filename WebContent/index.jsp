@@ -102,51 +102,18 @@
           <h1 class="modal-title text-center">Employee</h1>
         </div>
         <div class="modal-body">
-          <ul class="nav nav-tabs" id="tabContent">
-              <li class="active"><a href="#employeeSignIn" data-toggle="tab">Sign In</a></li>
-              <li><a href="#registerEmployee" data-toggle="tab">Register</a></li>
-          </ul>
 
-          <div class="tab-content">
-              <div class="tab-pane active" id="employeeSignIn">
-                <form class="form-signin" method="post" action = "EmployeeLogin">
-                  <label for="username" class="sr-only">UserName</label>
-                  <input type="text" name="username" class="form-control" placeholder="UserName" required autofocus>
-                  <label for="password" class="sr-only">Password</label>
-                  <input type="password" name="password" class="form-control" placeholder="Password" required>
-                  <div class="modal-footer">
-                  	<button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                  </div>                
-                </form>
-              </div>
+          <form class="form-signin" method="post" action = "EmployeeLogin">
+            <label for="username" class="sr-only">UserName</label>
+            <input type="text" name="username" class="form-control" placeholder="UserName" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <div class="modal-footer">
+            	<button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
+            </div>                
+          </form>
 
-              <div class="tab-pane" id="registerEmployee">
-                <form class="form-signin" method = "post" action = "Register">
-                  <fieldset>
-                    <label for="fname" class="sr-only">First Name</label>
-                    <input type="text" name="fname" class="form-control" placeholder="First Name" required autofocus>
-                    <label for="lname" class="sr-only">Last Name</label>
-                    <input type="text" name="lname" class="form-control" placeholder="Last Name" required>
-                    <label for="username" class="sr-only">UserName</label>
-                    <input type="text" name="username" class="form-control" placeholder="UserName" required>
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    <label for="passwordRetype" class="sr-only">Retype Password</label>
-                    <input type="password" name="passwordRetype" class="form-control" placeholder="Retype Password" required>
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
-                    <label for="phoneNumber" class="sr-only">Phone Number</label>
-                    <input type="number" name="phoneNumber" class="form-control" placeholder="Phone Number" required>
-                    <input type = "hidden" name = "person" value = "employee">
-                  </fieldset>
-                  <div class="modal-footer">
-                  	<button class="btn btn-lg btn-primary" type="submit">Register</button>
-                  	<button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">Close</button>
-                  </div>
-                </form>
-              </div>
-          </div>
         </div>
       </div>
 
