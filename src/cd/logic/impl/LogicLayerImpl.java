@@ -86,7 +86,7 @@ public class LogicLayerImpl implements LogicLayer {
 
 	@Override
 	public List<Transaction> getTransactionsFromEmployee(Employee employee) throws CDException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		TransactionCtrl transactionCtrl = new TransactionCtrl(objectLayer);
+		return transactionCtrl.getTransactionFromEmployee(employee);
+	} // getTransactionFromEmployee
 }
