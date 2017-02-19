@@ -4,6 +4,7 @@
 <%@ page import="cd.session.SessionManager" %>
 <%@ page import="cd.logic.LogicLayer" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="cd.entity.*" %>
 <%@ page import="java.util.Date" %>
 
@@ -76,8 +77,8 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li><a href="#Today">Today</a></li>
-          <li><a href="#Month">Month</a></li>
-          <li><a href="#Year">Year</a></li>
+          <li><a href="#">Month</a></li>
+          <li><a href="#">Year</a></li>
           <li style="float: right;"><a href=#addTransaction><span class="glyphicon glyphicon-envelope"></span></a></li>
           <li style="float: right;"><a href="#" data-toggle="modal" data-target="#accountModal">Account</a></li>
         </ul>
@@ -98,49 +99,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>$100</td>
-          <td>some good stuff</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      	<tr>
+	      <%List<Transaction> transactions = logicLayer.getTransactionsFromEmployee((Employee)hpSession.getUser());
+	      for(int i =1; i<= transactions.size(); i++){
+	    	  %>
+	    	  
+		   	  	<td><%=i %></td>
+		   	  	<td><%=transactions.get(i-1).getTransactionAmount() %></td>
+		   	  	<td><%=transactions.get(i-1).getDescription() %></td>
+	      <%} %>
 
-  <!-- Month -->
-  <div id="Month" class="container">
-    <h3>Month</h3>
-      <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>0</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Year -->
-  <div id="Year" class="container">
-    <h3>Year</h3>
-      <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2016</td>
-          <td>0</td>
-        </tr>
+		</tr>
       </tbody>
     </table>
   </div>
