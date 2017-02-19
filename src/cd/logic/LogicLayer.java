@@ -1,6 +1,10 @@
 package cd.logic;
 
+import java.util.List;
+
 import cd.CDException;
+import cd.entity.Employee;
+import cd.entity.Transaction;
 import cd.entity.User;
 import cd.session.Session;
 
@@ -39,5 +43,7 @@ public interface LogicLayer {
 			String phoneNumber);
 
 	void addTransaction(String amount, String description) throws CDException;
+	
+	List<Transaction> getTransactionsFromEmployee(Employee employee) throws CDException;
 
 }

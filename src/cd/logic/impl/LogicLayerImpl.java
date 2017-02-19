@@ -1,8 +1,11 @@
 package cd.logic.impl;
 
 import java.sql.Connection;
+import java.util.List;
 
 import cd.CDException;
+import cd.entity.Employee;
+import cd.entity.Transaction;
 import cd.entity.User;
 import cd.logic.LogicLayer;
 import cd.object.ObjectLayer;
@@ -79,5 +82,11 @@ public class LogicLayerImpl implements LogicLayer {
 	public void addTransaction(String amount, String description) throws CDException {
 		TransactionCtrl transactionCtrl = new TransactionCtrl(objectLayer);
 		transactionCtrl.addTransaction(amount, description);
+	}
+
+	@Override
+	public List<Transaction> getTransactionsFromEmployee(Employee employee) throws CDException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
